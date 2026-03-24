@@ -3,803 +3,281 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Skill Armory v2</title>
+<title>Skill Armory v2.1 - 森林的工作台</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #0f1923;
-    --bg2: #162030;
-    --bg3: #1e2d40;
-    --border: #2a3f55;
-    --text: #e8f0fe;
-    --text2: #8aa3be;
-    --gold: #f5c842;
-    --gold2: #e6a800;
-    --green: #4ade80;
-    --orange: #fb923c;
-    --red: #f87171;
-    --blue: #60a5fa;
-    --purple: #c084fc;
-    --cyan: #22d3ee;
-    --pink: #f472b6;
-  }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0f14;--bg2:#121920;--bg3:#1a2630;--border:#2a3f4d;
+  --text:#e8f0f8;--text2:#8aa3b0;--gold:#f5c842;--green:#4ade80;
+  --orange:#fb923c;--red:#f87171;--blue:#60a5fa;--purple:#c084fc;
+  --cyan:#22d3ee;--pink:#f472b6
+}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  height:100vh;overflow:hidden;display:flex;flex-direction:column
+}
 
-  /* ===== TOP NAV ===== */
-  #top-nav {
-    background: var(--bg2);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    height: 52px;
-    flex-shrink: 0;
-    gap: 4px;
-  }
-  #top-nav .nav-logo {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--gold);
-    margin-right: 20px;
-    white-space: nowrap;
-  }
-  .tab-btn {
-    background: none;
-    border: none;
-    color: var(--text2);
-    font-size: 14px;
-    padding: 6px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .tab-btn:hover { background: var(--bg3); color: var(--text); }
-  .tab-btn.active { background: var(--bg3); color: var(--gold); font-weight: 600; }
+/* TOP NAV */
+#top-nav{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 16px;height:52px;gap:4px;flex-shrink:0
+}
+#top-nav .nav-logo{font-size:18px;font-weight:700;color:var(--gold);margin-right:20px}
+.tab-btn{
+  background:none;border:none;color:var(--text2);font-size:14px;
+  padding:6px 16px;border-radius:8px;cursor:pointer;transition:all 0.2s
+}
+.tab-btn:hover{background:var(--bg3);color:var(--text)}
+.tab-btn.active{background:var(--bg3);color:var(--gold);font-weight:600}
 
-  /* ===== MAIN LAYOUT ===== */
-  #main {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-  }
+/* MAIN */
+#main{display:flex;flex:1;overflow:hidden}
 
-  /* ===== LEFT PANEL ===== */
-  #left-panel {
-    width: 280px;
-    flex-shrink: 0;
-    background: var(--bg2);
-    border-right: 1px solid var(--border);
-    overflow-y: auto;
-    padding: 20px 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  #left-panel::-webkit-scrollbar { width: 4px; }
-  #left-panel::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+/* LEFT PANEL */
+#left-panel{
+  width:260px;flex-shrink:0;background:var(--bg2);
+  border-right:1px solid var(--border);overflow-y:auto;
+  padding:16px;display:flex;flex-direction:column;gap:14px
+}
+#left-panel::-webkit-scrollbar{width:4px}
+#left-panel::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 
-  .avatar-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-  }
-  .avatar-circle {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: var(--bg3);
-    border: 2px solid var(--gold);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  }
-  .avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-  .avatar-cat-svg { width: 52px; height: 52px; }
-  .change-avatar-btn {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .change-avatar-btn:hover { color: var(--text); border-color: var(--gold); }
+.avatar-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.avatar-circle{
+  width:72px;height:72px;border-radius:50%;background:var(--bg3);
+  border:2px solid var(--gold);overflow:hidden;display:flex;
+  align-items:center;justify-content:center
+}
+.avatar-circle img{width:100%;height:100%;object-fit:cover}
+.change-avatar-btn{
+  background:var(--bg3);border:1px solid var(--border);color:var(--text2);
+  font-size:11px;padding:3px 10px;border-radius:20px;cursor:pointer
+}
+.char-name{font-size:16px;font-weight:700;text-align:center}
+.char-tags{display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.tag{background:var(--bg3);border:1px solid var(--border);color:var(--text2);font-size:11px;padding:2px 8px;border-radius:12px}
 
-  .char-name {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--text);
-    text-align: center;
-  }
-  .char-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
-    justify-content: center;
-  }
-  .tag {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 12px;
-  }
+.xp-section{display:flex;flex-direction:column;gap:4px}
+.xp-label{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.level-badge{background:var(--gold);color:#0a0f14;font-weight:700;font-size:11px;padding:2px 8px;border-radius:12px}
+.xp-bar-bg{background:var(--bg3);border-radius:6px;height:8px;overflow:hidden}
+.xp-bar-fill{height:100%;background:var(--gold);border-radius:6px;transition:width 0.6s ease}
+.xp-numbers{font-size:11px;color:var(--text2);text-align:right}
 
-  .evolution-chain {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 8px;
-    background: var(--bg3);
-    border-radius: 10px;
-  }
-  .evo-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    opacity: 0.4;
-    font-size: 10px;
-    color: var(--text2);
-    transition: all 0.3s;
-  }
-  .evo-item.current { opacity: 1; color: var(--gold); }
-  .evo-item .evo-emoji { font-size: 20px; }
-  .evo-arrow { color: var(--border); font-size: 12px; }
+.stats-section{display:flex;flex-direction:column;gap:8px}
+.stats-title{font-size:12px;color:var(--text2);font-weight:600}
+.stat-row{display:flex;flex-direction:column;gap:3px}
+.stat-label-row{display:flex;justify-content:space-between;font-size:11px}
+.stat-bar-bg{background:var(--bg3);border-radius:4px;height:5px;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
 
-  .xp-section { display: flex; flex-direction: column; gap: 6px; }
-  .xp-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-  }
-  .xp-label .level-badge {
-    background: linear-gradient(135deg, var(--gold2), var(--gold));
-    color: #0f1923;
-    font-weight: 700;
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 12px;
-  }
-  .xp-bar-bg {
-    background: var(--bg3);
-    border-radius: 6px;
-    height: 8px;
-    overflow: hidden;
-  }
-  .xp-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--gold2), var(--gold));
-    border-radius: 6px;
-    transition: width 0.6s ease;
-  }
-  .xp-numbers { font-size: 11px; color: var(--text2); text-align: right; }
+/* RIGHT CONTENT */
+#right-content{flex:1;overflow-y:auto;padding:16px}
+#right-content::-webkit-scrollbar{width:6px}
+#right-content::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 
-  .stats-section { display: flex; flex-direction: column; gap: 8px; }
-  .stats-title { font-size: 12px; color: var(--text2); font-weight: 600; letter-spacing: 0.05em; }
-  .stat-row { display: flex; flex-direction: column; gap: 3px; }
-  .stat-label-row { display: flex; justify-content: space-between; font-size: 11px; }
-  .stat-bar-bg { background: var(--bg3); border-radius: 4px; height: 5px; overflow: hidden; }
-  .stat-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
+.tab-pane{display:none}.tab-pane.active{display:block}
 
-  /* ===== RIGHT CONTENT ===== */
-  #right-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-  }
-  #right-content::-webkit-scrollbar { width: 6px; }
-  #right-content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+/* TODAY TAB */
+.today-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:1000px}
+@media(max-width:900px){.today-grid{grid-template-columns:1fr}}
 
-  .tab-pane { display: none; }
-  .tab-pane.active { display: block; }
+.panel{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:14px}
+.panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.panel-title{font-size:15px;font-weight:600}
+.btn-sm{
+  background:var(--bg3);border:1px solid var(--border);color:var(--gold);
+  font-size:12px;padding:4px 12px;border-radius:8px;cursor:pointer
+}
 
-  /* ===== TODAY TAB ===== */
-  .today-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  @media (max-width: 900px) { .today-grid { grid-template-columns: 1fr; } }
+.xp-today-tag{background:rgba(245,200,66,0.15);border:1px solid rgba(245,200,66,0.3);color:var(--gold);font-size:12px;font-weight:700;padding:3px 10px;border-radius:12px}
 
-  .panel {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-  }
-  .panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-  }
-  .panel-title { font-size: 15px; font-weight: 600; color: var(--text); }
-  .btn-sm {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--gold);
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-  }
-  .btn-sm:hover { background: var(--gold); color: #0f1923; border-color: var(--gold); }
+.activity-list{display:flex;flex-direction:column;gap:6px}
+.activity-item{display:flex;align-items:flex-start;gap:10px;padding:8px;background:var(--bg3);border-radius:8px;border:1px solid var(--border)}
+.activity-icon{font-size:18px;flex-shrink:0}
+.activity-body{flex:1;min-width:0}
+.activity-content{font-size:13px;line-height:1.4}
+.activity-time{font-size:11px;color:var(--text2);margin-top:2px}
+.activity-xp{flex-shrink:0;color:var(--gold);font-size:12px;font-weight:700}
 
-  .xp-today-tag {
-    background: rgba(245,200,66,0.15);
-    border: 1px solid rgba(245,200,66,0.3);
-    color: var(--gold);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 3px 10px;
-    border-radius: 12px;
-  }
+.task-list{display:flex;flex-direction:column;gap:6px}
+.task-item{
+  display:flex;align-items:center;gap:10px;padding:8px 10px;
+  background:var(--bg3);border-radius:8px;border:1px solid var(--border);
+  cursor:pointer;transition:all 0.2s
+}
+.task-item:hover:not(.done){border-color:var(--gold)}
+.task-item.done{opacity:0.5}
+.task-check{
+  width:20px;height:20px;border:2px solid var(--border);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:12px;color:#0a0f14;transition:all 0.2s
+}
+.task-item:not(.done) .task-check:hover{border-color:var(--green);background:rgba(74,222,128,0.1)}
+.task-item.done .task-check{background:var(--green);border-color:var(--green)}
+.task-body{flex:1;min-width:0}
+.task-title{font-size:13px}
+.task-item.done .task-title{text-decoration:line-through}
+.task-meta{font-size:11px;color:var(--text2);margin-top:2px}
+.overdue-badge{color:var(--orange);font-size:12px}
+.task-xp{font-size:11px;color:var(--gold);font-weight:600;white-space:nowrap}
 
-  .activity-list { display: flex; flex-direction: column; gap: 8px; }
-  .activity-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 8px 10px;
-    background: var(--bg3);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
-  .activity-icon { font-size: 20px; flex-shrink: 0; }
-  .activity-body { flex: 1; min-width: 0; }
-  .activity-content { font-size: 13px; line-height: 1.4; }
-  .activity-time { font-size: 11px; color: var(--text2); margin-top: 2px; }
-  .activity-xp {
-    flex-shrink: 0;
-    color: var(--gold);
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-  }
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;max-width:1200px}
+.project-card{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden
+}
+.project-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+.project-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--p-color,var(--orange))}
+.project-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;gap:8px}
+.project-name{font-size:15px;font-weight:700;color:var(--p-color,var(--orange))}
+.status-badge{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600}
+.status-active{background:rgba(74,222,128,0.15);color:var(--green);border:1px solid rgba(74,222,128,0.3)}
+.status-planning{background:rgba(96,165,250,0.15);color:var(--blue);border:1px solid rgba(96,165,250,0.3)}
+.project-progress-wrap{margin:10px 0}
+.project-progress-label{display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-bottom:4px}
+.project-progress-bar-bg{background:var(--bg3);border-radius:4px;height:6px;overflow:hidden}
+.project-progress-bar-fill{height:100%;border-radius:4px;background:var(--p-color,var(--orange));transition:width 0.6s ease}
+.project-partners{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px}
+.project-partner-tag{background:var(--bg3);border:1px solid var(--border);font-size:11px;padding:2px 7px;border-radius:10px;color:var(--text2)}
+.risk-badge{display:inline-flex;align-items:center;gap:3px;background:rgba(248,113,113,0.15);border:1px solid rgba(248,113,113,0.3);color:var(--red);font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600;margin-top:8px}
 
-  .task-list { display: flex; flex-direction: column; gap: 6px; }
-  .task-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 10px;
-    background: var(--bg3);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .task-item:hover { border-color: var(--gold); }
-  .task-item.done { opacity: 0.45; cursor: default; }
-  .task-item.done:hover { border-color: var(--border); }
-  .task-check {
-    width: 20px;
-    height: 20px;
-    border: 2px solid var(--border);
-    border-radius: 50%;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-  .task-item:not(.done) .task-check:hover { border-color: var(--green); }
-  .task-item.done .task-check { background: var(--green); border-color: var(--green); }
-  .task-check-tick { font-size: 11px; color: #0f1923; }
-  .task-body { flex: 1; min-width: 0; }
-  .task-title { font-size: 13px; }
-  .task-item.done .task-title { text-decoration: line-through; }
-  .task-meta { font-size: 11px; color: var(--text2); margin-top: 2px; display: flex; gap: 6px; align-items: center; }
-  .task-xp { font-size: 11px; color: var(--gold); font-weight: 600; white-space: nowrap; flex-shrink: 0; }
-  .overdue-badge { color: var(--orange); font-size: 12px; }
+/* PROJECT DRAWER */
+.drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:100;display:none}
+.drawer-overlay.active{display:block}
+.drawer-box{
+  position:fixed;right:0;top:0;bottom:0;width:480px;max-width:90vw;
+  background:var(--bg2);border-left:1px solid var(--border);padding:20px;
+  overflow-y:auto;transform:translateX(100%);transition:transform 0.25s ease
+}
+.drawer-overlay.active .drawer-box{transform:translateX(0)}
+.drawer-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.drawer-title{font-size:18px;font-weight:700}
+.drawer-close{
+  width:32px;height:32px;border-radius:8px;background:var(--bg3);border:1px solid var(--border);
+  color:var(--text2);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center
+}
+.drawer-section{margin-bottom:20px}
+.drawer-section-title{font-size:12px;color:var(--text2);font-weight:600;margin-bottom:10px}
 
-  /* ===== PROJECTS TAB ===== */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  @media (max-width: 800px) { .projects-grid { grid-template-columns: 1fr; } }
+.timeline{display:flex;flex-direction:column;gap:8px}
+.timeline-item{display:flex;gap:12px}
+.tl-dot-col{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:10px;height:10px;border-radius:50%;margin-top:4px}
+.tl-dot.done{background:var(--green)}
+.tl-dot.pending{background:var(--border)}
+.tl-dot.overdue{background:var(--red)}
+.tl-line{flex:1;width:2px;background:var(--border);margin:4px 0}
+.tl-content{flex:1;padding-bottom:12px}
+.tl-title{font-size:13px}.tl-title.done{color:var(--green)}
+.tl-title.overdue{color:var(--red)}
+.tl-date{font-size:11px;color:var(--text2);margin-top:2px}
 
-  .project-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px;
-    cursor: pointer;
-    transition: all 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-  .project-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-  }
-  .project-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
-  .project-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 8px; }
-  .project-name { font-size: 16px; font-weight: 700; }
-  .status-badge {
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 600;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .status-active { background: rgba(74,222,128,0.15); color: var(--green); border: 1px solid rgba(74,222,128,0.3); }
-  .status-planning { background: rgba(96,165,250,0.15); color: var(--blue); border: 1px solid rgba(96,165,250,0.3); }
-  .project-progress-wrap { margin: 10px 0; }
-  .project-progress-label { display: flex; justify-content: space-between; font-size: 11px; color: var(--text2); margin-bottom: 4px; }
-  .project-progress-bar-bg { background: var(--bg3); border-radius: 4px; height: 6px; overflow: hidden; }
-  .project-progress-bar-fill { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
-  .project-partners { display: flex; flex-wrap: wrap; gap: 4px; margin: 8px 0; }
-  .project-partner-tag {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    font-size: 11px;
-    padding: 2px 7px;
-    border-radius: 10px;
-    color: var(--text2);
-  }
-  .risk-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 3px;
-    background: rgba(248,113,113,0.15);
-    border: 1px solid rgba(248,113,113,0.3);
-    color: var(--red);
-    font-size: 11px;
-    padding: 2px 8px;
-    border-radius: 10px;
-    font-weight: 600;
-  }
+.risk-item{display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--bg3);border-radius:8px;margin-bottom:8px;border-left:3px solid var(--border)}
+.risk-item.risk-resolved{opacity:0.5}
+.risk-level{font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600}
+.risk-high{background:rgba(248,113,113,0.2);color:var(--red)}
+.risk-medium{background:rgba(251,146,60,0.2);color:var(--orange)}
+.risk-low{background:rgba(96,165,250,0.2);color:var(--blue)}
+.risk-resolve-btn{background:var(--bg);border:1px solid var(--border);color:var(--text2);font-size:11px;padding:4px 10px;border-radius:6px;cursor:pointer}
 
-  /* ===== FARM TAB ===== */
-  .farm-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    max-width: 480px;
-    margin: 0 auto 24px;
-  }
-  .farm-cell {
-    aspect-ratio: 1;
-    background: var(--bg2);
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-  .farm-cell:hover { border-color: var(--gold); background: var(--bg3); }
-  .farm-cell.empty::after { content: '+'; color: var(--text2); font-size: 22px; opacity: 0.4; }
-  .farm-cell.empty:hover::after { opacity: 0.8; color: var(--gold); }
-  .farm-cell.ready {
-    border-color: var(--green);
-    box-shadow: 0 0 12px rgba(74,222,128,0.4);
-    animation: glow-pulse 2s ease-in-out infinite;
-  }
-  @keyframes glow-pulse {
-    0%, 100% { box-shadow: 0 0 8px rgba(74,222,128,0.4); }
-    50% { box-shadow: 0 0 20px rgba(74,222,128,0.7); }
-  }
-  .farm-cell.lobster { border-color: var(--orange); cursor: default; }
-  .farm-cell.lobster:hover { border-color: var(--orange); }
-  .cell-timer {
-    position: absolute;
-    bottom: 2px;
-    left: 0; right: 0;
-    text-align: center;
-    font-size: 9px;
-    color: var(--text2);
-    background: rgba(15,25,35,0.7);
-  }
+/* PIXEL FARM */
+.pixel-farm-container{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:16px;max-width:800px}
+.pixel-farm-title{font-size:15px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.pixel-scene{
+  background:#8b9bb0;width:100%;height:300px;border-radius:8px;position:relative;overflow:hidden;
+  image-rendering:pixelated;background-image:
+    linear-gradient(90deg,rgba(255,255,255,0.1) 1px,transparent 1px),
+    linear-gradient(rgba(255,255,255,0.1) 1px,transparent 1px);
+  background-size:20px 20px
+}
+.pixel-cat{
+  position:absolute;width:32px;height:32px;font-size:24px;transition:all 0.3s;cursor:pointer
+}
+.pixel-desk{
+  position:absolute;width:48px;height:32px;background:#6b7b8e;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;font-size:16px
+}
+.pixel-plant{
+  position:absolute;width:24px;height:24px;font-size:18px
+}
+.pixel-lobster{position:absolute;width:28px;height:28px;font-size:22px;animation:lobster-bounce 1s infinite}
+@keyframes lobster-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-  .shop-title { font-size: 14px; font-weight: 600; color: var(--text2); margin-bottom: 12px; letter-spacing: 0.05em; text-align: center; }
-  .shop-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  .shop-item {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 12px 8px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .shop-item:hover { border-color: var(--gold); background: var(--bg3); }
-  .shop-emoji { font-size: 28px; margin-bottom: 4px; }
-  .shop-name { font-size: 12px; color: var(--text); margin-bottom: 2px; }
-  .shop-cost { font-size: 11px; color: var(--gold); font-weight: 600; }
-  .shop-time { font-size: 10px; color: var(--text2); }
+.farm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:400px;margin:0 auto}
+.farm-cell{
+  aspect-ratio:1;background:var(--bg3);border:2px solid var(--border);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:24px;cursor:pointer;
+  position:relative;transition:all 0.2s
+}
+.farm-cell:hover{border-color:var(--gold)}
+.farm-cell.empty{border-style:dashed}.farm-cell.ready{animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,200,66,0.4)}50%{box-shadow:0 0 15px 3px rgba(245,200,66,0.2)}}
+.cell-timer{position:absolute;bottom:2px;font-size:9px;color:var(--text2);background:rgba(0,0,0,0.5);padding:1px 4px;border-radius:4px}
 
-  /* ===== CHARACTER TAB ===== */
-  .char-detail {
-    max-width: 680px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  .char-avatar-big {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-  }
-  .avatar-big-circle {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    background: var(--bg3);
-    border: 3px solid var(--gold);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .avatar-big-circle img { width: 100%; height: 100%; object-fit: cover; }
-  .char-big-name { font-size: 22px; font-weight: 700; color: var(--text); }
-  .char-big-level {
-    background: linear-gradient(135deg, var(--gold2), var(--gold));
-    color: #0f1923;
-    font-weight: 700;
-    font-size: 13px;
-    padding: 3px 12px;
-    border-radius: 14px;
-  }
+.shop-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;max-width:500px;margin-top:16px}
+.shop-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;cursor:pointer;transition:all 0.2s}
+.shop-item:hover{background:var(--border)}
+.shop-emoji{font-size:28px;margin-bottom:4px}
+.shop-name{font-size:12px;margin-bottom:2px}
+.shop-cost{font-size:11px;color:var(--gold)}
 
-  .radar-section { display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .radar-title { font-size: 14px; font-weight: 600; color: var(--text2); letter-spacing: 0.05em; }
+/* CHARACTER */
+.char-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:900px}
+@media(max-width:800px){.char-grid{grid-template-columns:1fr}}
+.char-full{text-align:center;padding:20px}
+.avatar-big{width:120px;height:120px;border-radius:50%;background:var(--bg3);border:3px solid var(--gold);margin:0 auto 12px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.avatar-big img{width:100%;height:100%;object-fit:cover}
+.radar-wrap{background:var(--bg3);border-radius:12px;padding:16px}
+.achievements-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.achievement-card{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.achievement-icon{font-size:28px;margin-bottom:6px}
+.achievement-name{font-size:12px;font-weight:600;margin-bottom:2px}
+.achievement-desc{font-size:10px;color:var(--text2)}
 
-  .evo-full {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .evo-full-title { font-size: 13px; font-weight: 600; color: var(--text2); letter-spacing: 0.05em; }
-  .evo-full-chain { display: flex; align-items: center; justify-content: space-around; gap: 8px; }
-  .evo-full-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    opacity: 0.35;
-    flex: 1;
-    padding: 12px 8px;
-    border-radius: 10px;
-    border: 1px solid transparent;
-    transition: all 0.3s;
-  }
-  .evo-full-item.current {
-    opacity: 1;
-    background: rgba(245,200,66,0.08);
-    border-color: rgba(245,200,66,0.3);
-  }
-  .evo-full-item .evo-big-emoji { font-size: 36px; }
-  .evo-full-item .evo-label { font-size: 12px; font-weight: 600; color: var(--text2); }
-  .evo-full-item.current .evo-label { color: var(--gold); }
-  .evo-full-arrow { color: var(--border); font-size: 18px; flex-shrink: 0; }
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal-box{
+  background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  padding:20px;max-width:400px;width:90%;max-height:80vh;overflow-y:auto
+}
+.modal-title{font-size:16px;font-weight:700;margin-bottom:16px}
+.modal-text{font-size:13px;margin-bottom:16px;line-height:1.5}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px}
+.btn-primary{background:var(--gold);color:#0a0f14;border:none;padding:8px 16px;border-radius:8px;font-weight:600;cursor:pointer}
+.btn-secondary{background:var(--bg3);border:1px solid var(--border);color:var(--text);padding:8px 16px;border-radius:8px;cursor:pointer}
 
-  .achievements-section { display: flex; flex-direction: column; gap: 12px; }
-  .achievements-title { font-size: 14px; font-weight: 600; color: var(--text2); letter-spacing: 0.05em; }
-  .achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
-  }
-  .achievement-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 12px;
-    text-align: center;
-    transition: all 0.2s;
-  }
-  .achievement-card:hover { border-color: var(--gold); transform: translateY(-2px); }
-  .achievement-card.locked { opacity: 0.35; filter: grayscale(0.6); }
-  .achievement-emoji { font-size: 32px; margin-bottom: 6px; }
-  .achievement-name { font-size: 12px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
-  .achievement-desc { font-size: 11px; color: var(--text2); line-height: 1.3; }
-  .achievement-unlocked { font-size: 10px; color: var(--green); margin-top: 4px; }
+.form-group{margin-bottom:12px}
+.form-label{display:block;font-size:12px;color:var(--text2);margin-bottom:4px}
+.form-input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-size:13px}
+.form-input:focus{outline:none;border-color:var(--gold)}
 
-  /* ===== MODAL ===== */
-  .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    backdrop-filter: blur(4px);
-    padding: 20px;
-  }
-  .modal-overlay.hidden { display: none; }
-  .modal-box {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px;
-    width: 100%;
-    max-width: 440px;
-    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    animation: modal-in 0.2s ease;
-  }
-  @keyframes modal-in {
-    from { opacity: 0; transform: scale(0.95) translateY(10px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-  }
-  .modal-title { font-size: 16px; font-weight: 700; margin-bottom: 18px; color: var(--text); }
-  .form-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
-  .form-label { font-size: 12px; color: var(--text2); font-weight: 500; }
-  .form-input {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 14px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    outline: none;
-    transition: border-color 0.2s;
-    width: 100%;
-  }
-  .form-input:focus { border-color: var(--gold); }
-  .form-input select { background: var(--bg3); }
-  select.form-input option { background: var(--bg2); }
-  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
-  .btn-primary {
-    background: var(--gold);
-    color: #0f1923;
-    border: none;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 8px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-primary:hover { background: var(--gold2); }
-  .btn-secondary {
-    background: var(--bg3);
-    color: var(--text2);
-    border: 1px solid var(--border);
-    font-size: 13px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .btn-secondary:hover { color: var(--text); border-color: var(--text2); }
+/* TOAST */
+#toast-container{position:fixed;bottom:20px;right:20px;z-index:300}
+.toast{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:8px;margin-top:8px;font-size:13px;animation:slideIn 0.3s ease}
+.toast.error{border-color:var(--red);color:var(--red)}
+@keyframes slideIn{from{transform:translateX(100%);opacity:0}}
 
-  /* ===== PROJECT DRAWER ===== */
-  .drawer-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 90;
-    display: flex;
-    justify-content: flex-end;
-  }
-  .drawer-overlay.hidden { display: none; }
-  .drawer-box {
-    background: var(--bg2);
-    border-left: 1px solid var(--border);
-    width: 520px;
-    max-width: 100vw;
-    height: 100%;
-    overflow-y: auto;
-    padding: 24px;
-    animation: drawer-in 0.25s ease;
-  }
-  .drawer-box::-webkit-scrollbar { width: 4px; }
-  .drawer-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-  @keyframes drawer-in {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-  }
-  .drawer-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
-  .drawer-title { font-size: 18px; font-weight: 700; }
-  .drawer-close {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text2);
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    transition: all 0.2s;
-  }
-  .drawer-close:hover { color: var(--text); border-color: var(--text2); }
-  .drawer-section { margin-bottom: 20px; }
-  .drawer-section-title { font-size: 12px; font-weight: 600; color: var(--text2); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+/* LOADING */
+.empty-state{text-align:center;padding:30px;color:var(--text2);font-size:13px}
+.empty-emoji{font-size:32px;margin-bottom:8px}
+.loading-dots{display:flex;justify-content:center;gap:6px;padding:20px}
+.loading-dot{width:8px;height:8px;background:var(--border);border-radius:50%;animation:dot-pulse 1.4s infinite}
+.loading-dot:nth-child(2){animation-delay:0.2s}
+.loading-dot:nth-child(3){animation-delay:0.4s}
+@keyframes dot-pulse{0%,80%,100%{transform:scale(0)}40%{transform:scale(1)}}
 
-  /* Timeline */
-  .timeline { display: flex; flex-direction: column; gap: 0; }
-  .timeline-item { display: flex; gap: 12px; position: relative; }
-  .timeline-item:not(:last-child) .tl-line { flex: 1; }
-  .tl-dot-col { display: flex; flex-direction: column; align-items: center; width: 16px; flex-shrink: 0; }
-  .tl-dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 2px solid;
-    flex-shrink: 0;
-    margin-top: 3px;
-  }
-  .tl-dot.done { background: var(--green); border-color: var(--green); }
-  .tl-dot.pending { background: transparent; border-color: var(--border); }
-  .tl-dot.overdue { background: transparent; border-color: var(--orange); }
-  .tl-line { width: 2px; background: var(--border); margin: 3px auto; min-height: 20px; }
-  .tl-content { padding-bottom: 14px; flex: 1; }
-  .tl-title { font-size: 13px; color: var(--text); }
-  .tl-title.done { text-decoration: line-through; color: var(--text2); }
-  .tl-title.overdue { color: var(--orange); }
-  .tl-date { font-size: 11px; color: var(--text2); margin-top: 2px; }
-
-  /* Risks */
-  .risk-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 8px 10px;
-    background: var(--bg3);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    margin-bottom: 6px;
-  }
-  .risk-level {
-    font-size: 11px;
-    padding: 1px 7px;
-    border-radius: 8px;
-    font-weight: 600;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .risk-high { background: rgba(248,113,113,0.2); color: var(--red); }
-  .risk-medium { background: rgba(251,146,60,0.2); color: var(--orange); }
-  .risk-low { background: rgba(100,116,139,0.2); color: var(--text2); }
-  .risk-resolved { opacity: 0.4; text-decoration: line-through; }
-  .risk-resolve-btn {
-    background: none;
-    border: 1px solid var(--border);
-    color: var(--text2);
-    font-size: 10px;
-    padding: 2px 7px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s;
-    flex-shrink: 0;
-  }
-  .risk-resolve-btn:hover { color: var(--green); border-color: var(--green); }
-
-  /* ===== CONFIRM MODAL ===== */
-  .confirm-text { font-size: 14px; color: var(--text); margin-bottom: 6px; }
-  .confirm-sub { font-size: 13px; color: var(--gold); font-weight: 600; }
-
-  /* ===== XP FLOAT ANIMATION ===== */
-  .xp-float {
-    position: fixed;
-    top: 70px;
-    right: 30px;
-    font-size: 22px;
-    font-weight: 800;
-    color: var(--gold);
-    pointer-events: none;
-    z-index: 9999;
-    text-shadow: 0 0 20px rgba(245,200,66,0.5);
-    animation: xp-float-up 1.6s ease forwards;
-  }
-  @keyframes xp-float-up {
-    0% { opacity: 1; transform: translateY(0); }
-    70% { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-80px); }
-  }
-
-  /* ===== TOAST ===== */
-  .toast-container {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    pointer-events: none;
-  }
-  .toast {
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    color: var(--text);
-    font-size: 13px;
-    padding: 10px 16px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    animation: toast-in 0.25s ease;
-    pointer-events: auto;
-  }
-  .toast.success { border-color: var(--green); }
-  .toast.error { border-color: var(--red); }
-  @keyframes toast-in {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Empty state */
-  .empty-state {
-    text-align: center;
-    padding: 32px;
-    color: var(--text2);
-    font-size: 13px;
-  }
-  .empty-emoji { font-size: 32px; margin-bottom: 8px; }
-
-  /* Loading */
-  .loading-dots {
-    display: inline-flex;
-    gap: 4px;
-    align-items: center;
-    padding: 8px;
-  }
-  .loading-dot {
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    animation: loading-bounce 1s ease-in-out infinite;
-  }
-  .loading-dot:nth-child(2) { animation-delay: 0.15s; }
-  .loading-dot:nth-child(3) { animation-delay: 0.3s; }
-  @keyframes loading-bounce {
-    0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-    40% { transform: scale(1.2); opacity: 1; }
-  }
+/* XP FLOAT */
+.xp-float{position:fixed;top:100px;right:100px;font-size:24px;color:var(--gold);font-weight:700;pointer-events:none;animation:floatUp 1.5s forwards;z-index:400}
+@keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-40px) scale(1.2);opacity:0}}
 </style>
 </head>
 <body>
 
-<!-- TOP NAV -->
 <nav id="top-nav">
   <div class="nav-logo">⚔️ Skill Armory</div>
   <button class="tab-btn active" onclick="switchTab('today')">⚡ 今日</button>
@@ -808,227 +286,175 @@
   <button class="tab-btn" onclick="switchTab('character')">👤 角色</button>
 </nav>
 
-<!-- MAIN -->
 <div id="main">
-  <!-- LEFT PANEL -->
   <aside id="left-panel">
     <div class="avatar-wrap">
-      <div class="avatar-circle" id="avatar-circle">
-        <!-- filled by JS -->
-      </div>
-      <button class="change-avatar-btn" onclick="openAvatarModal()">🖼 更换头像</button>
+      <div class="avatar-circle" id="avatar-circle"></div>
+      <button class="change-avatar-btn" onclick="openAvatarModal()">更换头像</button>
     </div>
-    <div>
-      <div class="char-name" id="char-name">—</div>
-      <div class="char-tags" id="char-tags" style="margin-top:6px;"></div>
-    </div>
-    <div class="evolution-chain" id="evo-chain">
-      <div class="evo-item" id="evo-0">
-        <span class="evo-emoji">🐱</span>
-        <span>小猫咪</span>
-      </div>
-      <span class="evo-arrow">→</span>
-      <div class="evo-item current" id="evo-1">
-        <span class="evo-emoji">🐈</span>
-        <span>布道猫</span>
-      </div>
-      <span class="evo-arrow">→</span>
-      <div class="evo-item" id="evo-2">
-        <span class="evo-emoji">🦁</span>
-        <span>狮子王</span>
-      </div>
-    </div>
+    <div class="char-name" id="char-name">—</div>
+    <div class="char-tags" id="char-tags"></div>
+    
     <div class="xp-section">
       <div class="xp-label">
-        <span id="level-name-text" style="font-size:12px;color:var(--text2);">Lv —</span>
+        <span id="level-name">—</span>
         <span class="level-badge" id="level-badge">LV 1</span>
       </div>
-      <div class="xp-bar-bg">
-        <div class="xp-bar-fill" id="xp-bar" style="width:0%"></div>
-      </div>
+      <div class="xp-bar-bg"><div class="xp-bar-fill" id="xp-bar" style="width:0%"></div></div>
       <div class="xp-numbers" id="xp-numbers">0 / 0 XP</div>
     </div>
+    
     <div class="stats-section">
       <div class="stats-title">五维属性</div>
       <div id="stats-rows"></div>
     </div>
   </aside>
 
-  <!-- RIGHT CONTENT -->
   <div id="right-content">
-    <!-- TAB: TODAY -->
+    <!-- TODAY TAB -->
     <div class="tab-pane active" id="pane-today">
       <div class="today-grid">
-        <!-- 战报 -->
         <div class="panel">
           <div class="panel-header">
-            <div style="display:flex;align-items:center;gap:8px;">
+            <div style="display:flex;align-items:center;gap:8px">
               <span class="panel-title">⚡ 今日战报</span>
               <span class="xp-today-tag" id="today-xp-tag">+0 XP</span>
             </div>
             <button class="btn-sm" onclick="openActivityModal()">+ 记录</button>
           </div>
-          <div class="activity-list" id="activity-list">
-            <div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div>
-          </div>
+          <div class="activity-list" id="activity-list"><div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div></div>
         </div>
-        <!-- 任务 -->
+        
         <div class="panel">
           <div class="panel-header">
             <span class="panel-title">📋 今日任务</span>
             <button class="btn-sm" onclick="openTaskModal()">+ 新增</button>
           </div>
-          <div class="task-list" id="task-list">
-            <div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div>
-          </div>
+          <div class="task-list" id="task-list"><div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div></div>
         </div>
       </div>
     </div>
 
-    <!-- TAB: PROJECTS -->
+    <!-- PROJECTS TAB -->
     <div class="tab-pane" id="pane-projects">
-      <div class="projects-grid" id="projects-grid">
-        <div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div>
-      </div>
+      <div class="projects-grid" id="projects-grid"><div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div></div>
     </div>
 
-    <!-- TAB: FARM -->
+    <!-- FARM TAB -->
     <div class="tab-pane" id="pane-farm">
-      <div style="max-width:560px;margin:0 auto;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-          <span style="font-size:16px;font-weight:700;">🌿 我的农场</span>
-          <span id="farm-xp-hint" style="font-size:12px;color:var(--text2);"></span>
+      <div class="pixel-farm-container">
+        <div class="pixel-farm-title">🏢 像素办公室 <span style="font-size:12px;color:var(--text2);font-weight:normal">( 小猫正在努力工作 )</span></div>
+        <div class="pixel-scene" id="pixel-scene">
+          <div class="pixel-cat" id="pixel-cat" style="left:50px;top:100px">🐱</div>
+          <div class="pixel-lobster" id="pixel-lobster" style="right:50px;top:80px">🦞</div>
+        </div>
+      </div>
+      
+      <div class="panel">
+        <div class="panel-header">
+          <span class="panel-title">🌿 我的农场</span>
+          <span style="font-size:12px;color:var(--text2)" id="farm-xp-hint">当前 XP: —</span>
         </div>
         <div class="farm-grid" id="farm-grid"></div>
-        <div style="margin-top:24px;">
-          <div class="shop-title">🛒 植物商店</div>
-          <div class="shop-grid" id="shop-grid"></div>
-        </div>
+        <div class="shop-grid" id="shop-grid"></div>
       </div>
     </div>
 
-    <!-- TAB: CHARACTER -->
+    <!-- CHARACTER TAB -->
     <div class="tab-pane" id="pane-character">
-      <div class="char-detail">
-        <div class="char-avatar-big">
-          <div class="avatar-big-circle" id="avatar-big"></div>
-          <div class="char-big-name" id="char-big-name">—</div>
-          <div class="char-big-level" id="char-big-level">LV 1</div>
-        </div>
-        <div class="radar-section">
-          <div class="radar-title">STATS 五维雷达</div>
-          <canvas id="radar-canvas" width="260" height="260"></canvas>
-        </div>
-        <div class="evo-full">
-          <div class="evo-full-title">进化路线</div>
-          <div class="evo-full-chain">
-            <div class="evo-full-item" id="evo-full-0">
-              <span class="evo-big-emoji">🐱</span>
-              <span class="evo-label">小猫咪</span>
-              <span style="font-size:10px;color:var(--text2);">Lv 1-3</span>
-            </div>
-            <span class="evo-full-arrow">→</span>
-            <div class="evo-full-item current" id="evo-full-1">
-              <span class="evo-big-emoji">🐈</span>
-              <span class="evo-label">布道猫</span>
-              <span style="font-size:10px;color:var(--text2);">Lv 4-7</span>
-            </div>
-            <span class="evo-full-arrow">→</span>
-            <div class="evo-full-item" id="evo-full-2">
-              <span class="evo-big-emoji">🦁</span>
-              <span class="evo-label">狮子王</span>
-              <span style="font-size:10px;color:var(--text2);">Lv 8+</span>
-            </div>
+      <div class="char-grid">
+        <div class="panel">
+          <div class="char-full">
+            <div class="avatar-big" id="avatar-big"></div>
+            <div class="char-name" id="char-big-name">—</div>
+            <div style="color:var(--gold);font-size:14px;margin-top:4px" id="char-big-level">LV —</div>
           </div>
         </div>
-        <div class="achievements-section">
-          <div class="achievements-title">🏆 成就墙</div>
-          <div class="achievements-grid" id="achievements-grid">
-            <div class="loading-dots"><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span></div>
+        <div class="panel">
+          <div class="panel-title" style="margin-bottom:12px">📊 五维雷达</div>
+          <div class="radar-wrap">
+            <canvas id="radar-canvas" width="260" height="200" style="width:100%;max-width:260px"></canvas>
           </div>
+        </div>
+        <div class="panel" style="grid-column:1/-1">
+          <div class="panel-title" style="margin-bottom:12px">🏆 成就墙</div>
+          <div class="achievements-grid" id="achievements-grid"></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- TOAST CONTAINER -->
-<div class="toast-container" id="toast-container"></div>
-
-<!-- MODAL: ACTIVITY -->
-<div class="modal-overlay hidden" id="modal-activity">
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-activity" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal-box">
-    <div class="modal-title">⚡ 记录战报</div>
+    <div class="modal-title">记录战报</div>
     <div class="form-group">
-      <label class="form-label">Emoji Icon</label>
-      <input class="form-input" id="act-icon" type="text" placeholder="例如 🔥" maxlength="4">
+      <label class="form-label">图标</label>
+      <input class="form-input" id="act-icon" value="🔥" maxlength="2">
     </div>
     <div class="form-group">
       <label class="form-label">内容</label>
-      <input class="form-input" id="act-content" type="text" placeholder="描述一下你做了什么…">
+      <input class="form-input" id="act-content" placeholder="完成了什么...">
     </div>
     <div class="form-group">
-      <label class="form-label">XP 值</label>
-      <input class="form-input" id="act-xp" type="number" min="1" max="9999" placeholder="10">
+      <label class="form-label">XP</label>
+      <input class="form-input" id="act-xp" type="number" value="10">
     </div>
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('modal-activity')">取消</button>
-      <button class="btn-primary" onclick="submitActivity()">记录 +XP</button>
+      <button class="btn-primary" onclick="submitActivity()">确认</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: TASK -->
-<div class="modal-overlay hidden" id="modal-task">
+<div class="modal-overlay" id="modal-task" onclick="if(event.target===this)closeModal(this.id)">
   <div class="modal-box">
-    <div class="modal-title">📋 新增任务</div>
+    <div class="modal-title">新增任务</div>
     <div class="form-group">
       <label class="form-label">任务名称</label>
-      <input class="form-input" id="task-title-input" type="text" placeholder="任务名称…">
+      <input class="form-input" id="task-title" placeholder="输入任务...">
     </div>
     <div class="form-group">
       <label class="form-label">分类</label>
-      <select class="form-input" id="task-category-input">
-        <option value="daily">Daily 日常</option>
-        <option value="project">Project 项目</option>
-        <option value="side">Side 支线</option>
+      <select class="form-input" id="task-category">
+        <option value="daily">日常</option>
+        <option value="project">项目</option>
+        <option value="side">支线</option>
       </select>
     </div>
     <div class="form-group">
-      <label class="form-label">XP 值</label>
-      <input class="form-input" id="task-xp-input" type="number" min="1" placeholder="20">
+      <label class="form-label">XP奖励</label>
+      <input class="form-input" id="task-xp" type="number" value="20">
     </div>
     <div class="form-group">
       <label class="form-label">截止日期</label>
-      <input class="form-input" id="task-due-input" type="date">
+      <input class="form-input" id="task-due" type="date">
     </div>
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('modal-task')">取消</button>
-      <button class="btn-primary" onclick="submitTask()">添加任务</button>
+      <button class="btn-primary" onclick="submitTask()">添加</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: CONFIRM TASK DONE -->
-<div class="modal-overlay hidden" id="modal-confirm">
-  <div class="modal-box" style="max-width:360px;">
+<div class="modal-overlay" id="modal-confirm" onclick="if(event.target===this)closeModal(this.id)">
+  <div class="modal-box" style="max-width:340px">
     <div class="modal-title">✅ 确认完成</div>
-    <div class="confirm-text" id="confirm-task-name">确认完成这个任务？</div>
-    <div class="confirm-sub" id="confirm-xp-text"></div>
+    <div class="modal-text" id="confirm-text">确认完成这个任务？</div>
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('modal-confirm')">取消</button>
-      <button class="btn-primary" onclick="confirmTaskDone()">确认完成</button>
+      <button class="btn-primary" onclick="confirmTaskDone()">确认 (+XP)</button>
     </div>
   </div>
 </div>
 
-<!-- MODAL: AVATAR -->
-<div class="modal-overlay hidden" id="modal-avatar">
-  <div class="modal-box" style="max-width:380px;">
-    <div class="modal-title">🖼 更换头像</div>
+<div class="modal-overlay" id="modal-avatar" onclick="if(event.target===this)closeModal(this.id)">
+  <div class="modal-box">
+    <div class="modal-title">更换头像</div>
     <div class="form-group">
-      <label class="form-label">图片 URL</label>
-      <input class="form-input" id="avatar-url-input" type="url" placeholder="https://example.com/avatar.png">
+      <label class="form-label">图片URL</label>
+      <input class="form-input" id="avatar-url" placeholder="https://...">
     </div>
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('modal-avatar')">取消</button>
@@ -1037,12 +463,20 @@
   </div>
 </div>
 
-<!-- MODAL: FARM HARVEST CONFIRM -->
-<div class="modal-overlay hidden" id="modal-harvest">
-  <div class="modal-box" style="max-width:340px;">
-    <div class="modal-title" id="harvest-title">🎉 收获啦！</div>
-    <div class="confirm-text" id="harvest-text"></div>
-    <div class="confirm-sub" id="harvest-xp"></div>
+<div class="modal-overlay" id="modal-plant" onclick="if(event.target===this)closeModal(this.id)">
+  <div class="modal-box">
+    <div class="modal-title">选择植物</div>
+    <div id="plant-options"></div>
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeModal('modal-plant')">取消</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-harvest" onclick="if(event.target===this)closeModal(this.id)">
+  <div class="modal-box" style="max-width:320px">
+    <div class="modal-title">🎉 收获</div>
+    <div class="modal-text" id="harvest-text">确认收获？</div>
     <div class="modal-actions">
       <button class="btn-secondary" onclick="closeModal('modal-harvest')">取消</button>
       <button class="btn-primary" onclick="confirmHarvest()">收获 +XP</button>
@@ -1050,1225 +484,525 @@
   </div>
 </div>
 
-<!-- MODAL: FARM PLANT SELECT -->
-<div class="modal-overlay hidden" id="modal-plant">
-  <div class="modal-box" style="max-width:400px;">
-    <div class="modal-title">🌱 选择植物</div>
-    <div id="plant-options" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;"></div>
-    <div id="plant-confirm-area" style="display:none;margin-bottom:14px;">
-      <div class="confirm-text" id="plant-confirm-text"></div>
-      <div style="font-size:12px;color:var(--text2);margin-top:4px;" id="plant-confirm-sub"></div>
-    </div>
-    <div class="modal-actions">
-      <button class="btn-secondary" onclick="closeModal('modal-plant');selectedPlant=null;selectedCell=null;">取消</button>
-      <button class="btn-primary" id="plant-confirm-btn" style="display:none;" onclick="confirmPlant()">种下去！</button>
-    </div>
-  </div>
-</div>
-
-<!-- DRAWER: PROJECT DETAIL -->
-<div class="drawer-overlay hidden" id="project-drawer">
-  <div class="drawer-box" id="project-drawer-box">
+<!-- PROJECT DRAWER -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="if(event.target===this)closeDrawer()">
+  <div class="drawer-box">
     <div class="drawer-header">
-      <div class="drawer-title" id="drawer-project-name">项目详情</div>
+      <div class="drawer-title" id="drawer-title">项目详情</div>
       <button class="drawer-close" onclick="closeDrawer()">✕</button>
     </div>
     <div id="drawer-content"></div>
   </div>
 </div>
 
+<div id="toast-container"></div>
+
 <script>
-// =============================================
-// SUPABASE INIT
-// =============================================
-const SUPABASE_URL = 'https://qyjdqbwpbqmajhbszcft.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5amRxYndwYnFtYWpoYnN6Y2Z0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMzU3MzMsImV4cCI6MjA4OTkxMTczM30.r_oB5lbfCAqu9DZ2c4FM8oGJYg6hMchaz9Xxq8COAZ8';
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL='https://qyjdqbwpbqmajhbszcft.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5amRxYndwYnFtYWpoYnN6Y2Z0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMzU3MzMsImV4cCI6MjA4OTkxMTczM30.r_oB5lbfCAqu9DZ2c4FM8oGJYg6hMchaz9Xxq8COAZ8';
+const {createClient}=supabase;
+const db=createClient(SUPABASE_URL,SUPABASE_KEY);
 
-// =============================================
-// STATE
-// =============================================
-let state = {
-  character: null,
-  profile: null,
-  activities: [],
-  tasks: [],
-  projects: [],
-  milestones: [],
-  risks: [],
-  achievements: [],
-  farmItems: [],
-};
+let state={character:null,profile:null,activities:[],tasks:[],projects:[],milestones:[],risks:[],achievements:[],farmItems:[]};
+let pendingTaskId=null,pendingTaskXp=0,pendingHarvestId=null,pendingHarvestXp=0,selectedCell=null,selectedPlant=null;
+let pixelCatPos={x:50,y:100},pixelLobsterPos={x:300,y:80},catDirection=1;
 
-let pendingTaskId = null;
-let pendingTaskXp = 0;
-let pendingHarvestId = null;
-let pendingHarvestXp = 0;
-let selectedCell = null;
-let selectedPlant = null;
-
-const PLANTS = [
-  { type: 'tomato', emoji: '🍅', name: '番茄', xpCost: 50, xpReward: 80, hoursReady: 2 },
-  { type: 'sunflower', emoji: '🌻', name: '向日葵', xpCost: 80, xpReward: 130, hoursReady: 4 },
-  { type: 'mushroom', emoji: '🍄', name: '蘑菇', xpCost: 30, xpReward: 50, hoursReady: 1 },
-  { type: 'cactus', emoji: '🌵', name: '仙人掌', xpCost: 100, xpReward: 180, hoursReady: 8 },
+const PLANTS=[
+  {type:'tomato',emoji:'🍅',name:'番茄',xpCost:50,xpReward:80,hoursReady:2},
+  {type:'sunflower',emoji:'🌻',name:'向日葵',xpCost:80,xpReward:130,hoursReady:4},
+  {type:'mushroom',emoji:'🍄',name:'蘑菇',xpCost:30,xpReward:50,hoursReady:1},
+  {type:'cactus',emoji:'🌵',name:'仙人掌',xpCost:100,xpReward:180,hoursReady:8}
 ];
 
-// =============================================
-// UTILS
-// =============================================
-function today() {
-  return new Date().toISOString().split('T')[0];
-}
-function fmtTime(ts) {
-  if (!ts) return '';
-  const d = new Date(ts);
-  return d.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-}
-function fmtDate(d) {
-  if (!d) return '';
-  return d.replace(/-/g, '/');
-}
-function isOverdue(dueDate) {
-  if (!dueDate) return false;
-  return dueDate <= today();
-}
-function timeLeft(readyAt) {
-  if (!readyAt) return null;
-  const diff = new Date(readyAt) - Date.now();
-  if (diff <= 0) return null;
-  const h = Math.floor(diff / 3600000);
-  const m = Math.floor((diff % 3600000) / 60000);
-  if (h > 0) return `${h}h ${m}m`;
-  return `${m}m`;
-}
+function today(){return new Date().toISOString().split('T')[0]}
+function fmtDate(d){return d?d.replace(/-/g,'/'):''}
+function isOverdue(d){return d&&d<=today()}
 
-// =============================================
-// TOAST
-// =============================================
-function showToast(msg, type = 'success') {
-  const el = document.createElement('div');
-  el.className = `toast ${type}`;
-  el.textContent = msg;
+function showToast(msg,type='success'){
+  const el=document.createElement('div');
+  el.className='toast'+(type==='error'?' error':'');
+  el.textContent=msg;
   document.getElementById('toast-container').appendChild(el);
-  setTimeout(() => el.remove(), 2200);
+  setTimeout(()=>el.remove(),2200);
 }
 
-// =============================================
-// XP FLOAT
-// =============================================
-function showXpFloat(xp) {
-  const el = document.createElement('div');
-  el.className = 'xp-float';
-  el.textContent = `+${xp} XP`;
+function showXpFloat(xp){
+  const el=document.createElement('div');
+  el.className='xp-float';
+  el.textContent='+'+xp+' XP';
   document.body.appendChild(el);
-  setTimeout(() => el.remove(), 1600);
+  setTimeout(()=>el.remove(),1500);
 }
 
-// =============================================
-// MODAL
-// =============================================
-function openModal(id) {
-  document.getElementById(id).classList.remove('hidden');
-}
-function closeModal(id) {
-  document.getElementById(id).classList.add('hidden');
+function openModal(id){document.getElementById(id).classList.add('active')}
+function closeModal(id){document.getElementById(id).classList.remove('active')}
+
+function switchTab(name){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('pane-'+name).classList.add('active');
+  if(name==='character')drawRadar();
+  if(name==='farm')startPixelAnimation();
 }
 
-// =============================================
-// TABS
-// =============================================
-function switchTab(name) {
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
-  document.querySelector(`.tab-btn[onclick="switchTab('${name}')"]`).classList.add('active');
-  document.getElementById(`pane-${name}`).classList.add('active');
-  if (name === 'character') drawRadar();
-}
-
-// =============================================
-// DATA FETCH
-// =============================================
-async function loadData() {
-  try {
-    const [charRes, profileRes, actRes, taskRes, projRes, mileRes, riskRes, achRes, farmRes] = await Promise.all([
-      db.from('character').select('*').eq('id', 1).single(),
-      db.from('user_profile').select('*').eq('id', 1).single(),
-      db.from('activities').select('*').eq('date', today()).order('created_at', { ascending: false }),
-      db.from('tasks').select('*').order('created_at', { ascending: false }),
+async function loadData(){
+  try{
+    const[charRes,profRes,actRes,taskRes,projRes,mileRes,riskRes,achRes,farmRes]=await Promise.all([
+      db.from('character').select('*').eq('id',1).single(),
+      db.from('user_profile').select('*').eq('id',1).single(),
+      db.from('activities').select('*').eq('date',today()).order('created_at',{ascending:false}),
+      db.from('tasks').select('*').order('created_at',{ascending:false}),
       db.from('projects').select('*'),
       db.from('project_milestones').select('*'),
       db.from('project_risks').select('*'),
-      db.from('achievements').select('*').order('unlocked_at', { ascending: false }),
-      db.from('farm_items').select('*'),
+      db.from('achievements').select('*').order('unlocked_at',{ascending:false}),
+      db.from('farm_items').select('*')
     ]);
-    state.character = charRes.data;
-    state.profile = profileRes.data;
-    state.activities = actRes.data || [];
-    state.tasks = taskRes.data || [];
-    state.projects = projRes.data || [];
-    state.milestones = mileRes.data || [];
-    state.risks = riskRes.data || [];
-    state.achievements = achRes.data || [];
-    state.farmItems = farmRes.data || [];
+    state.character=charRes.data;
+    state.profile=profRes.data;
+    state.activities=actRes.data||[];
+    state.tasks=taskRes.data||[];
+    state.projects=projRes.data||[];
+    state.milestones=mileRes.data||[];
+    state.risks=riskRes.data||[];
+    state.achievements=achRes.data||[];
+    state.farmItems=farmRes.data||[];
     renderAll();
-  } catch (e) {
-    console.error(e);
-    showToast('加载数据失败，请刷新重试', 'error');
-  }
+  }catch(e){console.error(e);showToast('加载失败','error')}
 }
 
-// =============================================
-// RENDER LEFT PANEL
-// =============================================
-function renderLeftPanel() {
-  const char = state.character;
-  const profile = state.profile;
-  if (!char || !profile) return;
-
-  // Avatar
-  const avatarWrap = document.getElementById('avatar-circle');
-  if (profile.avatar_url) {
-    avatarWrap.innerHTML = `<img src="${profile.avatar_url}" onerror="this.outerHTML='${catSvg()}'">`;
-  } else {
-    avatarWrap.innerHTML = catSvg();
-  }
-
-  // Big avatar
-  const bigAvatar = document.getElementById('avatar-big');
-  if (profile.avatar_url) {
-    bigAvatar.innerHTML = `<img src="${profile.avatar_url}" onerror="this.outerHTML='${catSvg(64)}'">`;
-  } else {
-    bigAvatar.innerHTML = catSvg(64);
-  }
-
-  // Name
-  document.getElementById('char-name').textContent = profile.name || '未命名';
-  document.getElementById('char-big-name').textContent = profile.name || '未命名';
-
-  // Tags
-  const tagsEl = document.getElementById('char-tags');
-  tagsEl.innerHTML = (profile.tags || []).map(t => `<span class="tag">${t}</span>`).join('');
-
-  // Level
-  document.getElementById('level-badge').textContent = `LV ${char.level}`;
-  document.getElementById('char-big-level').textContent = `LV ${char.level}`;
-  document.getElementById('level-name-text').textContent = char.level_name || `Lv ${char.level}`;
-
-  // XP Bar
-  const xpPct = Math.min(100, Math.max(0, (char.xp_total / char.xp_next) * 100));
-  document.getElementById('xp-bar').style.width = `${xpPct}%`;
-  document.getElementById('xp-numbers').textContent = `${char.xp_total} / ${char.xp_next} XP`;
-
-  // Evolution
-  const evoStage = char.level <= 3 ? 0 : (char.level <= 7 ? 1 : 2);
-  [0,1,2].forEach(i => {
-    const el = document.getElementById(`evo-${i}`);
-    if (el) el.classList.toggle('current', i === evoStage);
-    const fel = document.getElementById(`evo-full-${i}`);
-    if (fel) fel.classList.toggle('current', i === evoStage);
-  });
-
-  // Stats
-  const stats = [
-    { key: 'stat_organize', name: '组织力', color: '#4ade80' },
-    { key: 'stat_ai', name: 'AI力', color: '#22d3ee' },
-    { key: 'stat_broadcast', name: '布道力', color: '#f472b6' },
-    { key: 'stat_execute', name: '执行力', color: '#fb923c' },
-    { key: 'stat_insight', name: '洞察力', color: '#c084fc' },
-  ];
-  const statsEl = document.getElementById('stats-rows');
-  const maxStat = 100;
-  statsEl.innerHTML = stats.map(s => {
-    const val = char[s.key] || 0;
-    const pct = Math.min(100, (val / maxStat) * 100);
-    return `
-      <div class="stat-row">
-        <div class="stat-label-row">
-          <span style="color:${s.color};">${s.name}</span>
-          <span>${val}</span>
-        </div>
-        <div class="stat-bar-bg">
-          <div class="stat-bar-fill" style="width:${pct}%;background:${s.color};"></div>
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-function catSvg(size = 52) {
-  return `<svg class="avatar-cat-svg" viewBox="0 0 100 100" style="width:${size}px;height:${size}px;">
-    <circle cx="50" cy="50" r="48" fill="#2a3f55"/>
-    <ellipse cx="50" cy="58" rx="28" ry="22" fill="#d4a853"/>
-    <polygon points="22,42 18,18 38,30" fill="#d4a853"/>
-    <polygon points="78,42 82,18 62,30" fill="#d4a853"/>
-    <circle cx="38" cy="52" r="4" fill="#0f1923"/>
-    <circle cx="62" cy="52" r="4" fill="#0f1923"/>
-    <ellipse cx="50" cy="60" rx="6" ry="4" fill="#b8943f"/>
-  </svg>`;
-}
-
-// =============================================
-// RENDER TODAY
-// =============================================
-function renderToday() {
-  // Activities
-  const actEl = document.getElementById('activity-list');
-  const todayXp = state.activities.reduce((s, a) => s + (a.xp || 0), 0);
-  document.getElementById('today-xp-tag').textContent = `+${todayXp} XP`;
-  if (state.activities.length === 0) {
-    actEl.innerHTML = `<div class="empty-state"><div class="empty-emoji">📝</div>今日还没有战报<br>快记录下你的成长吧！</div>`;
-  } else {
-    actEl.innerHTML = state.activities.map(a => `
-      <div class="activity-item">
-        <div class="activity-icon">${a.icon || '🔥'}</div>
-        <div class="activity-body">
-          <div class="activity-content">${a.content || ''}</div>
-          <div class="activity-time">${fmtTime(a.activity_time)}</div>
-        </div>
-        <div class="activity-xp">+${a.xp || 0}</div>
-      </div>
-    `).join('');
-  }
-
-  // Tasks
-  const taskEl = document.getElementById('task-list');
-  const sorted = [...state.tasks].sort((a, b) => {
-    if (a.status === b.status) return 0;
-    return a.status === 'done' ? 1 : -1;
-  });
-  if (sorted.length === 0) {
-    taskEl.innerHTML = `<div class="empty-state"><div class="empty-emoji">🎯</div>暂无任务<br>去添加一个新任务吧！</div>`;
-  } else {
-    taskEl.innerHTML = sorted.map(t => {
-      const isDone = t.status === 'done';
-      const overdue = !isDone && isOverdue(t.due_date);
-      return `
-        <div class="task-item ${isDone ? 'done' : ''}" onclick="${isDone ? '' : `onTaskClick(${t.id}, ${t.xp_value || 0}, '${t.title.replace(/'/g, "\\'")}')`}">
-          <div class="task-check">${isDone ? '<span class="task-check-tick">✓</span>' : ''}</div>
-          <div class="task-body">
-            <div class="task-title">${t.title}${overdue ? ' <span class="overdue-badge">⚠️</span>' : ''}</div>
-            <div class="task-meta">${t.category || ''}${t.due_date ? ' · ' + fmtDate(t.due_date) : ''}</div>
-          </div>
-          <div class="task-xp">+${t.xp_value || 0}</div>
-        </div>
-      `;
-    }).join('');
-  }
-}
-
-function onTaskClick(id, xp, title) {
-  pendingTaskId = id;
-  pendingTaskXp = xp;
-  document.getElementById('confirm-task-name').textContent = `确认完成「${title}」？`;
-  document.getElementById('confirm-xp-text').textContent = `获得 +${xp} XP`;
-  openModal('modal-confirm');
-}
-
-async function confirmTaskDone() {
-  closeModal('modal-confirm');
-  if (!pendingTaskId) return;
-  try {
-    await db.from('tasks').update({ status: 'done', done_at: new Date().toISOString() }).eq('id', pendingTaskId);
-    const newXp = (state.character?.xp_total || 0) + pendingTaskXp;
-    await db.from('character').update({ xp_total: newXp }).eq('id', 1);
-    state.character.xp_total = newXp;
-    showToast('任务完成！+' + pendingTaskXp + ' XP');
-    showXpFloat(pendingTaskXp);
-    await loadData();
-  } catch (e) {
-    console.error(e);
-    showToast('操作失败，请重试', 'error');
-  }
-  pendingTaskId = null;
-  pendingTaskXp = 0;
-}
-
-// =============================================
-// RENDER PROJECTS
-// =============================================
-function renderProjects() {
-  const el = document.getElementById('projects-grid');
-  if (state.projects.length === 0) {
-    el.innerHTML = `<div class="empty-state"><div class="empty-emoji">📌</div>暂无项目</div>`;
-    return;
-  }
-  el.innerHTML = state.projects.map(p => {
-    const color = p.color || '#fb923c';
-    const riskCount = state.risks.filter(r => r.project_id === p.id && r.level === 'high' && r.status !== 'resolved').length;
-    return `
-      <div class="project-card" onclick="openProjectDrawer(${p.id})" style="--p-color:${color};">
-        <style>.project-card[onclick*="${p.id}"]::before { background:${color}; }</style>
-        <div class="project-card-header">
-          <div class="project-name" style="color:${color};">${p.name}</div>
-          <span class="status-badge ${p.status === 'active' ? 'status-active' : 'status-planning'}">${p.status === 'active' ? '进行中' : '规划中'}</span>
-        </div>
-        <div class="project-progress-wrap">
-          <div class="project-progress-label"><span>进度</span><span>${p.progress || 0}%</span></div>
-          <div class="project-progress-bar-bg">
-            <div class="project-progress-bar-fill" style="width:${p.progress || 0}%;background:${color};"></div>
-          </div>
-        </div>
-        <div class="project-partners">
-          ${(p.partners || []).map(part => `<span class="project-partner-tag">${part}</span>`).join('')}
-        </div>
-        ${riskCount > 0 ? `<div class="risk-badge">⚠️ 高危风险 ${riskCount}</div>` : ''}
-      </div>
-    `;
-  }).join('');
-}
-
-function openProjectDrawer(pid) {
-  const p = state.projects.find(x => x.id === pid);
-  if (!p) return;
-  document.getElementById('drawer-project-name').textContent = p.name;
-  const miles = state.milestones.filter(m => m.project_id === pid).sort((a, b) => (a.date > b.date ? 1 : -1));
-  const risks = state.risks.filter(r => r.project_id === pid);
-  const tasks = state.tasks.filter(t => t.category === 'project');
-  const color = p.color || '#fb923c';
-
-  document.getElementById('drawer-content').innerHTML = `
-    <div class="drawer-section">
-      <div class="drawer-section-title">基本信息</div>
-      <div style="font-size:13px;color:var(--text);line-height:1.6;">${p.description || '暂无描述'}</div>
-      <div style="font-size:12px;color:var(--text2);margin-top:8px;">
-        ${p.start_date || ''} ${p.start_date && p.end_date ? '~' : ''} ${p.end_date || ''}
-      </div>
-    </div>
-    <div class="drawer-section">
-      <div class="drawer-section-title">合作方</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;">
-        ${(p.partners || []).map(part => `<span class="tag">${part}</span>`).join('') || '—'}
-      </div>
-    </div>
-    <div class="drawer-section">
-      <div class="drawer-section-title">时间线</div>
-      <div class="timeline">
-        ${miles.length === 0 ? '<div style="font-size:12px;color:var(--text2);">暂无里程碑</div>' : miles.map((m, idx) => {
-          const isDone = m.status === 'done';
-          const overdue = !isDone && isOverdue(m.date);
-          return `
-            <div class="timeline-item">
-              <div class="tl-dot-col">
-                <div class="tl-dot ${isDone ? 'done' : (overdue ? 'overdue' : 'pending')}"></div>
-                ${idx < miles.length - 1 ? '<div class="tl-line"></div>' : ''}
-              </div>
-              <div class="tl-content">
-                <div class="tl-title ${isDone ? 'done' : (overdue ? 'overdue' : '')}">${m.title}</div>
-                <div class="tl-date">${fmtDate(m.date)} ${overdue ? '(逾期)' : ''}</div>
-              </div>
-            </div>
-          `;
-        }).join('')}
-      </div>
-    </div>
-    <div class="drawer-section">
-      <div class="drawer-section-title">风险列表</div>
-      ${risks.length === 0 ? '<div style="font-size:12px;color:var(--text2);">暂无风险</div>' : risks.map(r => `
-        <div class="risk-item ${r.status === 'resolved' ? 'risk-resolved' : ''}">
-          <div>
-            <div style="font-size:13px;">${r.title}</div>
-            <span class="risk-level risk-${r.level}">${r.level === 'high' ? '高危' : (r.level === 'medium' ? '中危' : '低危')}</span>
-          </div>
-          ${r.status !== 'resolved' ? `<button class="risk-resolve-btn" onclick="resolveRisk(${r.id})">标记解决</button>` : ''}
-        </div>
-      `).join('')}
-    </div>
-    <div class="drawer-section">
-      <div class="drawer-section-title">项目 Todo</div>
-      ${tasks.length === 0 ? '<div style="font-size:12px;color:var(--text2);">暂无任务</div>' : tasks.map(t => `
-        <div class="risk-item ${t.status === 'done' ? 'risk-resolved' : ''}">
-          <div style="font-size:13px;">${t.title}</div>
-          <span style="font-size:11px;color:${t.status==='done'?'var(--green)':'var(--text2)'};">${t.status==='done'?'已完成':'待办'}</span>
-        </div>
-      `).join('')}
-    </div>
-  `;
-  document.getElementById('project-drawer').classList.remove('hidden');
-}
-
-function closeDrawer() {
-  document.getElementById('project-drawer').classList.add('hidden');
-}
-
-async function resolveRisk(id) {
-  try {
-    await db.from('project_risks').update({ status: 'resolved' }).eq('id', id);
-    showToast('风险已标记为已解决');
-    await loadData();
-    // Refresh drawer if open
-    const openPid = state.risks.find(r => r.id === id)?.project_id;
-    if (openPid) openProjectDrawer(openPid);
-  } catch (e) {
-    console.error(e);
-    showToast('操作失败，请重试', 'error');
-  }
-}
-
-// =============================================
-// RENDER FARM
-// =============================================
-function renderFarm() {
-  const el = document.getElementById('farm-grid');
-  const cells = [];
-  for (let i = 0; i < 16; i++) {
-    const item = state.farmItems.find(f => f.grid_position === i);
-    if (item && item.item_type === 'lobster') {
-      cells.push({ i, type: 'lobster', emoji: '🦞' });
-    } else if (item) {
-      const ready = item.status === 'ready';
-      const plant = PLANTS.find(p => p.type === item.item_type);
-      cells.push({ i, type: 'plant', ready, emoji: plant?.emoji || '🌱', item });
-    } else {
-      cells.push({ i, type: 'empty' });
-    }
-  }
-
-  el.innerHTML = cells.map(c => {
-    if (c.type === 'lobster') {
-      return `<div class="farm-cell lobster" id="lobster-cell-${c.i}">${c.emoji}</div>`;
-    }
-    if (c.type === 'plant') {
-      const timer = c.ready ? '' : `<div class="cell-timer">${timeLeft(c.item.ready_at) || '...'}</div>`;
-      return `<div class="farm-cell ${c.ready ? 'ready' : ''}" onclick="onFarmCellClick(${c.i})">${c.emoji}${timer}</div>`;
-    }
-    return `<div class="farm-cell empty" onclick="onFarmEmptyClick(${c.i})"></div>`;
-  }).join('');
-
-  // Shop
-  const shopEl = document.getElementById('shop-grid');
-  shopEl.innerHTML = PLANTS.map(p => `
-    <div class="shop-item" onclick="selectPlantFromShop('${p.type}')">
-      <div class="shop-emoji">${p.emoji}</div>
-      <div class="shop-name">${p.name}</div>
-      <div class="shop-cost">${p.xpCost} XP</div>
-      <div class="shop-time">${p.hoursReady}h后收获</div>
-    </div>
-  `).join('');
-
-  // Hint
-  const xp = state.character?.xp_total || 0;
-  document.getElementById('farm-xp-hint').textContent = `当前 XP: ${xp}`;
-}
-
-function onFarmEmptyClick(pos) {
-  selectedCell = pos;
-  const opts = document.getElementById('plant-options');
-  opts.innerHTML = PLANTS.map(p => `
-    <button class="shop-item" style="background:var(--bg3);" onclick="selectPlantToPlant('${p.type}')">
-      <div class="shop-emoji">${p.emoji}</div>
-      <div class="shop-name">${p.name}</div>
-      <div class="shop-cost">-${p.xpCost} XP</div>
-    </button>
-  `).join('');
-  document.getElementById('plant-confirm-area').style.display = 'none';
-  document.getElementById('plant-confirm-btn').style.display = 'none';
-  openModal('modal-plant');
-}
-
-function selectPlantToPlant(type) {
-  selectedPlant = PLANTS.find(p => p.type === type);
-  document.getElementById('plant-confirm-text').textContent = `确定种植 ${selectedPlant.emoji} ${selectedPlant.name}？`;
-  document.getElementById('plant-confirm-sub').textContent = `消耗 ${selectedPlant.xpCost} XP，${selectedPlant.hoursReady}小时后可收获 ${selectedPlant.xpReward} XP`;
-  document.getElementById('plant-confirm-area').style.display = 'block';
-  document.getElementById('plant-confirm-btn').style.display = '';
-}
-
-async function confirmPlant() {
-  closeModal('modal-plant');
-  if (!selectedPlant || selectedCell === null) return;
-  const xp = state.character?.xp_total || 0;
-  if (xp < selectedPlant.xpCost) {
-    showToast('XP不足！先去做任务吧', 'error');
-    return;
-  }
-  try {
-    const plantedAt = new Date();
-    const readyAt = new Date(plantedAt.getTime() + selectedPlant.hoursReady * 3600000);
-    await db.from('farm_items').insert({
-      item_type: selectedPlant.type,
-      grid_position: selectedCell,
-      status: 'planted',
-      planted_at: plantedAt.toISOString(),
-      ready_at: readyAt.toISOString(),
-      xp_cost: selectedPlant.xpCost,
-      xp_reward: selectedPlant.xpReward,
-      emoji: selectedPlant.emoji,
-    });
-    await db.from('character').update({ xp_total: xp - selectedPlant.xpCost }).eq('id', 1);
-    state.character.xp_total = xp - selectedPlant.xpCost;
-    showToast(`种下${selectedPlant.name}！-${selectedPlant.xpCost} XP`);
-    await loadData();
-  } catch (e) {
-    console.error(e);
-    showToast('种植失败，请重试', 'error');
-  }
-  selectedPlant = null;
-  selectedCell = null;
-}
-
-function onFarmCellClick(pos) {
-  const item = state.farmItems.find(f => f.grid_position === pos);
-  if (!item || item.status !== 'ready') return;
-  pendingHarvestId = item.id;
-  pendingHarvestXp = item.xp_reward || 0;
-  const plant = PLANTS.find(p => p.type === item.item_type);
-  document.getElementById('harvest-text').textContent = `收获 ${plant?.emoji || '🌱'} ${plant?.name || '植物'}？`;
-  document.getElementById('harvest-xp').textContent = `+${pendingHarvestXp} XP`;
-  openModal('modal-harvest');
-}
-
-async function confirmHarvest() {
-  closeModal('modal-harvest');
-  if (!pendingHarvestId) return;
-  try {
-    await db.from('farm_items').update({ status: 'harvested' }).eq('id', pendingHarvestId);
-    const newXp = (state.character?.xp_total || 0) + pendingHarvestXp;
-    await db.from('character').update({ xp_total: newXp }).eq('id', 1);
-    state.character.xp_total = newXp;
-    showToast(`收获成功！+${pendingHarvestXp} XP`);
-    showXpFloat(pendingHarvestXp);
-    await loadData();
-  } catch (e) {
-    console.error(e);
-    showToast('收获失败，请重试', 'error');
-  }
-  pendingHarvestId = null;
-  pendingHarvestXp = 0;
-}
-
-function selectPlantFromShop(type) {
-  selectedPlant = PLANTS.find(p => p.type === type);
-  // Find first empty cell
-  const emptyCells = [];
-  for (let i = 0; i < 16; i++) {
-    if (!state.farmItems.find(f => f.grid_position === i)) emptyCells.push(i);
-  }
-  if (emptyCells.length === 0) {
-    showToast('农场已满！先收获一些作物', 'error');
-    return;
-  }
-  selectedCell = emptyCells[0];
-  onFarmEmptyClick(selectedCell);
-}
-
-// Lobster animation
-let lobsterPos = 0;
-function startLobsterAnimation() {
-  setInterval(() => {
-    const lobsterItem = state.farmItems.find(f => f.item_type === 'lobster');
-    if (lobsterItem) {
-      const currentPos = lobsterItem.grid_position;
-      const neighbors = [];
-      const row = Math.floor(currentPos / 4);
-      const col = currentPos % 4;
-      if (row > 0) neighbors.push(currentPos - 4);
-      if (row < 3) neighbors.push(currentPos + 4);
-      if (col > 0) neighbors.push(currentPos - 1);
-      if (col < 3) neighbors.push(currentPos + 1);
-      const empties = neighbors.filter(n => !state.farmItems.find(f => f.grid_position === n && f.item_type !== 'lobster'));
-      if (empties.length > 0) {
-        const nextPos = empties[Math.floor(Math.random() * empties.length)];
-        lobsterItem.grid_position = nextPos;
-        renderFarm();
-        // Update in background (no db update for lobster position as per requirements)
-      }
-    }
-  }, 5000);
-}
-
-// =============================================
-// RENDER CHARACTER
-// =============================================
-function renderAchievements() {
-  const el = document.getElementById('achievements-grid');
-  if (state.achievements.length === 0) {
-    el.innerHTML = `<div class="empty-state" style="grid-column:1/-1;"><div class="empty-emoji">🏆</div>还没有解锁成就<br>继续努力吧！</div>`;
-  } else {
-    el.innerHTML = state.achievements.map(a => `
-      <div class="achievement-card ${a.unlocked_at ? '' : 'locked'}">
-        <div class="achievement-emoji">${a.icon || '🏅'}</div>
-        <div class="achievement-name">${a.name}</div>
-        <div class="achievement-desc">${a.description || ''}</div>
-        ${a.unlocked_at ? `<div class="achievement-unlocked">${fmtDate(a.unlocked_at.split('T')[0])} 解锁</div>` : ''}
-      </div>
-    `).join('');
-  }
-}
-
-function drawRadar() {
-  const canvas = document.getElementById('radar-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const size = 260;
-  const cx = size / 2;
-  const cy = size / 2;
-  const radius = 90;
-  const stats = [
-    { key: 'stat_organize', name: '组织力', color: '#4ade80' },
-    { key: 'stat_ai', name: 'AI力', color: '#22d3ee' },
-    { key: 'stat_broadcast', name: '布道力', color: '#f472b6' },
-    { key: 'stat_execute', name: '执行力', color: '#fb923c' },
-    { key: 'stat_insight', name: '洞察力', color: '#c084fc' },
-  ];
-  const values = stats.map(s => (state.character?.[s.key] || 0));
-  const maxVal = 100;
-
-  ctx.clearRect(0, 0, size, size);
-
-  // Draw grid
-  ctx.strokeStyle = '#2a3f55';
-  ctx.lineWidth = 1;
-  for (let r = 0.2; r <= 1; r += 0.2) {
-    ctx.beginPath();
-    for (let i = 0; i < 5; i++) {
-      const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
-      const x = cx + Math.cos(angle) * radius * r;
-      const y = cy + Math.sin(angle) * radius * r;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.closePath();
-    ctx.stroke();
-  }
-
-  // Draw axes
-  for (let i = 0; i < 5; i++) {
-    const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
-    const x = cx + Math.cos(angle) * radius;
-    const y = cy + Math.sin(angle) * radius;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(x, y);
-    ctx.stroke();
-    // Label
-    const lx = cx + Math.cos(angle) * (radius + 22);
-    const ly = cy + Math.sin(angle) * (radius + 22);
-    ctx.fillStyle = stats[i].color;
-    ctx.font = 'bold 11px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(stats[i].name, lx, ly);
-  }
-
-  // Draw data
-  ctx.beginPath();
-  for (let i = 0; i < 5; i++) {
-    const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
-    const val = Math.min(maxVal, Math.max(0, values[i]));
-    const r = (val / maxVal) * radius;
-    const x = cx + Math.cos(angle) * r;
-    const y = cy + Math.sin(angle) * r;
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-  ctx.closePath();
-  ctx.fillStyle = 'rgba(245,200,66,0.2)';
-  ctx.fill();
-  ctx.strokeStyle = '#f5c842';
-  ctx.lineWidth = 2;
-  ctx.stroke();
-
-  // Draw points
-  for (let i = 0; i < 5; i++) {
-    const angle = (Math.PI * 2 * i) / 5 - Math.PI / 2;
-    const val = Math.min(maxVal, Math.max(0, values[i]));
-    const r = (val / maxVal) * radius;
-    const x = cx + Math.cos(angle) * r;
-    const y = cy + Math.sin(angle) * r;
-    ctx.beginPath();
-    ctx.arc(x, y, 4, 0, Math.PI * 2);
-    ctx.fillStyle = stats[i].color;
-    ctx.fill();
-  }
-}
-
-// =============================================
-// MODAL ACTIONS
-// =============================================
-function openActivityModal() {
-  document.getElementById('act-icon').value = '🔥';
-  document.getElementById('act-content').value = '';
-  document.getElementById('act-xp').value = '10';
-  openModal('modal-activity');
-}
-
-async function submitActivity() {
-  const icon = document.getElementById('act-icon').value.trim() || '🔥';
-  const content = document.getElementById('act-content').value.trim();
-  const xp = parseInt(document.getElementById('act-xp').value) || 0;
-  if (!content) { showToast('请输入内容', 'error'); return; }
-  closeModal('modal-activity');
-  try {
-    await db.from('activities').insert({
-      activity_time: new Date().toISOString(),
-      icon,
-      content,
-      xp,
-      date: today(),
-    });
-    const newXp = (state.character?.xp_total || 0) + xp;
-    await db.from('character').update({ xp_total: newXp }).eq('id', 1);
-    state.character.xp_total = newXp;
-    showToast('战报记录成功！+' + xp + ' XP');
-    showXpFloat(xp);
-    await loadData();
-  } catch (e) {
-    console.error(e);
-    showToast('记录失败，请重试', 'error');
-  }
-}
-
-function openTaskModal() {
-  document.getElementById('task-title-input').value = '';
-  document.getElementById('task-category-input').value = 'daily';
-  document.getElementById('task-xp-input').value = '20';
-  document.getElementById('task-due-input').value = today();
-  openModal('modal-task');
-}
-
-async function submitTask() {
-  const title = document.getElementById('task-title-input').value.trim();
-  const category = document.getElementById('task-category-input').value;
-  const xp = parseInt(document.getElementById('task-xp-input').value) || 0;
-  const dueDate = document.getElementById('task-due-input').value || null;
-  if (!title) { showToast('请输入任务名称', 'error'); return; }
-  closeModal('modal-task');
-  try {
-    await db.from('tasks').insert({
-      title,
-      category,
-      status: 'todo',
-      xp_value: xp,
-      due_date: dueDate,
-    });
-    showToast('任务添加成功');
-    await loadData();
-  } catch (e) {
-    console.error(e);
-    showToast('添加失败，请重试', 'error');
-  }
-}
-
-function openAvatarModal() {
-  document.getElementById('avatar-url-input').value = state.profile?.avatar_url || '';
-  openModal('modal-avatar');
-}
-
-async function submitAvatar() {
-  const url = document.getElementById('avatar-url-input').value.trim();
-  closeModal('modal-avatar');
-  try {
-    await db.from('user_profile').update({ avatar_url: url || null }).eq('id', 1);
-    showToast('头像更新成功');
-    await loadData();
-  } catch (e) {
-    console.error(e);
-    showToast('更新失败，请重试', 'error');
-  }
-}
-
-// =============================================
-// RENDER ALL
-// =============================================
-function renderAll() {
+function renderAll(){
   renderLeftPanel();
-  renderToday();
-  renderProjects();
-  renderFarm();
-  renderAchievements();
-}
-
-// =============================================
-// INIT
-// =============================================
-document.addEventListener('DOMContentLoaded', () => {
-  loadData();
-  startLobsterAnimation();
-  // Set default due date
-  document.getElementById('task-due-input').value = today();
-});
-</script>
-</body>
-</html><script>
-const SUPABASE_URL = 'https://qyjdqbwpbqmajhbszcft.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InF5amRxYndwYnFtYWpoYnN6Y2Z0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQzMzU3MzMsImV4cCI6MjA4OTkxMTczM30.r_oB5lbfCAqu9DZ2c4FM8oGJYg6hMchaz9Xxq8COAZ8';
-const { createClient } = supabase;
-const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-
-let state = { character: null, profile: null, activities: [], tasks: [], projects: [], milestones: [], risks: [], achievements: [], farmItems: [] };
-let pendingTaskId = null, pendingTaskXp = 0, pendingHarvestId = null, pendingHarvestXp = 0, selectedCell = null, selectedPlant = null;
-
-const PLANTS = [
-  { type: 'tomato', emoji: '🍅', name: '番茄', xpCost: 50, xpReward: 80, hoursReady: 2 },
-  { type: 'sunflower', emoji: '🌻', name: '向日葵', xpCost: 80, xpReward: 130, hoursReady: 4 },
-  { type: 'mushroom', emoji: '🍄', name: '蘑菇', xpCost: 30, xpReward: 50, hoursReady: 1 },
-  { type: 'cactus', emoji: '🌵', name: '仙人掌', xpCost: 100, xpReward: 180, hoursReady: 8 },
-];
-
-function today() { return new Date().toISOString().split('T')[0]; }
-function fmtDate(d) { return d ? d.replace(/-/g, '/') : ''; }
-function isOverdue(due) { return due && due <= today(); }
-
-function showToast(msg, type = 'success') {
-  const el = document.createElement('div');
-  el.className = 'toast ' + type;
-  el.textContent = msg;
-  document.getElementById('toast-container').appendChild(el);
-  setTimeout(() => el.remove(), 2000);
-}
-
-function showXpFloat(amount) {
-  const el = document.createElement('div');
-  el.className = 'xp-float';
-  el.textContent = '+' + amount + ' XP';
-  document.body.appendChild(el);
-  setTimeout(() => el.remove(), 1500);
-}
-
-function openModal(id) { document.getElementById(id).classList.add('active'); }
-function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-async function fetchAll() {
-  try {
-    const [char, profile, acts, tasks, projects, milestones, risks, achievements, farm] = await Promise.all([
-      db.from('character').select('*').eq('id', 1).single(),
-      db.from('user_profile').select('*').eq('id', 1).single(),
-      db.from('activities').select('*').eq('date', today()).order('created_at', { ascending: false }),
-      db.from('tasks').select('*'),
-      db.from('projects').select('*'),
-      db.from('project_milestones').select('*'),
-      db.from('project_risks').select('*'),
-      db.from('achievements').select('*'),
-      db.from('farm_items').select('*'),
-    ]);
-    state.character = char.data;
-    state.profile = profile.data;
-    state.activities = acts.data || [];
-    state.tasks = tasks.data || [];
-    state.projects = projects.data || [];
-    state.milestones = milestones.data || [];
-    state.risks = risks.data || [];
-    state.achievements = achievements.data || [];
-    state.farmItems = farm.data || [];
-    renderAll();
-  } catch (e) {
-    console.error(e);
-    showToast('数据加载失败', 'error');
-  }
-}
-
-function renderAll() {
-  renderCharacter();
   renderToday();
   renderProjects();
   renderFarm();
   renderCharacterTab();
 }
 
-function renderCharacter() {
-  const char = state.character, profile = state.profile;
-  if (!char || !profile) return;
-  const avatarEl = document.getElementById('char-avatar');
-  if (profile.avatar_url) {
-    avatarEl.innerHTML = `<img src="${profile.avatar_url}" style="width:100%;height:100%;border-radius:50%;object-fit:cover;"><div class="change-avatar" onclick="openModal('avatar-modal')">📷</div>`;
-  } else {
-    avatarEl.innerHTML = `<svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="55" fill="#1a2535" stroke="#ffd580" stroke-width="2"/><text x="60" y="75" text-anchor="middle" font-size="50">🐱</text></svg><div class="change-avatar" onclick="openModal('avatar-modal')">📷</div>`;
-  }
-  document.getElementById('char-name').textContent = profile.name;
-  document.getElementById('char-tags').textContent = profile.tags.join(' · ');
-  document.getElementById('level-badge').textContent = `Lv.${char.level} · ${char.level_name}`;
-  document.getElementById('xp-text').textContent = `${char.xp_total} / ${char.xp_next} XP`;
-  document.getElementById('xp-bar').style.width = (char.xp_total / char.xp_next * 100) + '%';
-  const stats = [
-    { name: '组织力', val: char.stat_organize, color: '#ff6688' },
-    { name: 'AI力', val: char.stat_ai, color: '#aa66ff' },
-    { name: '布道力', val: char.stat_broadcast, color: '#44cc88' },
-    { name: '执行力', val: char.stat_execute, color: '#ff6644' },
-    { name: '洞察力', val: char.stat_insight, color: '#ffd580' },
-  ];
-  document.getElementById('stats-list').innerHTML = stats.map(s => `
-    <div class="stat-row"><div class="stat-name">${s.name}</div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width:${s.val}%;background:${s.color}"></div></div><div class="stat-val">${s.val}</div></div>
-  `).join('');
-  document.getElementById('role-tags').innerHTML = profile.tags.map((t, i) => {
-    const colors = ['orange', 'blue', 'green'];
-    return `<div class="role-tag ${colors[i % 3]}">${t}</div>`;
-  }).join('');
-}
-
-function renderToday() {
-  const todayXp = state.activities.reduce((s, a) => s + (a.xp || 0), 0);
-  document.getElementById('today-xp-total').textContent = '+' + todayXp + ' XP';
-  document.getElementById('activities-list').innerHTML = state.activities.map(a => `
-    <div class="activity-item">
-      <div class="activity-time">${a.activity_time || ''}</div>
-      <div class="activity-icon">${a.icon}</div>
-      <div class="activity-text">${a.content}</div>
-      <div class="activity-xp">+${a.xp}</div>
-    </div>
-  `).join('') || '<div class="empty">今天还没有战报</div>';
+function renderLeftPanel(){
+  const char=state.character,prof=state.profile;
+  if(!char||!prof)return;
   
-  const todo = state.tasks.filter(t => t.status === 'todo').sort((a, b) => new Date(a.due_date || '9999') - new Date(b.due_date || '9999'));
-  const done = state.tasks.filter(t => t.status === 'done');
-  const renderTask = (t, isDone) => `
-    <div class="task-item ${isDone ? 'done' : ''} ${!isDone && isOverdue(t.due_date) ? 'overdue' : ''}">
-      <div class="task-check ${isDone ? 'checked' : ''}" onclick="onTaskClick('${t.id}', ${t.xp_value}, '${t.title.replace(/'/g, "\\'")}')">${isDone ? '✓' : ''}</div>
-      <div class="task-content">
-        <div class="task-title">${t.title} ${!isDone && isOverdue(t.due_date) ? '<span class="warning">⚠️</span>' : ''}</div>
-        <div class="task-meta">${t.category} · ${t.xp_value}XP · ${t.due_date ? fmtDate(t.due_date) : '无截止'}</div>
-      </div>
-    </div>
-  `;
-  document.getElementById('tasks-list').innerHTML = [...todo.map(t => renderTask(t, false)), ...done.map(t => renderTask(t, true))].join('') || '<div class="empty">暂无任务</div>';
-}
-
-function renderProjects() {
-  document.getElementById('projects-grid').innerHTML = state.projects.map(p => {
-    const highRisks = state.risks.filter(r => r.project_id === p.id && r.level === 'high' && r.status === 'open').length;
-    return `
-      <div class="project-card" style="border-left-color:${p.color}" onclick="openProjectModal('${p.id}')">
-        <div class="project-header">
-          <div class="project-name">${p.name}</div>
-          <div class="project-status">进行中</div>
-        </div>
-        <div class="project-progress">
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${p.progress}%;background:${p.color}"></div></div>
-          <span class="progress-text">${p.progress}%</span>
-        </div>
-        <div class="project-partners">${(p.partners || []).slice(0, 3).map(pt => `<span class="partner-tag">${pt.split('（')[0]}</span>`).join('')}</div>
-        ${highRisks > 0 ? `<div class="project-risk">⚠️ ${highRisks} 个高风险</div>` : ''}
-      </div>
-    `;
+  const avatarWrap=document.getElementById('avatar-circle');
+  if(prof.avatar_url){
+    avatarWrap.innerHTML='<img src="'+prof.avatar_url+'" onerror="this.outerHTML=catSvg()">';
+  }else avatarWrap.innerHTML=catSvg();
+  
+  document.getElementById('char-name').textContent=prof.name||'未命名';
+  document.getElementById('char-tags').innerHTML=(prof.tags||[]).map(t=>'<span class="tag">'+t+'</span>').join('');
+  document.getElementById('level-name').textContent=char.level_name||('Lv '+char.level);
+  document.getElementById('level-badge').textContent='LV '+char.level;
+  document.getElementById('xp-bar').style.width=Math.min(100,(char.xp_total/char.xp_next)*100)+'%';
+  document.getElementById('xp-numbers').textContent=char.xp_total+' / '+char.xp_next+' XP';
+  
+  const stats=[
+    {key:'stat_organize',name:'组织力',color:'#4ade80'},
+    {key:'stat_ai',name:'AI力',color:'#22d3ee'},
+    {key:'stat_broadcast',name:'布道力',color:'#f472b6'},
+    {key:'stat_execute',name:'执行力',color:'#fb923c'},
+    {key:'stat_insight',name:'洞察力',color:'#c084fc'}
+  ];
+  document.getElementById('stats-rows').innerHTML=stats.map(s=>{
+    const val=char[s.key]||0;
+    return '<div class="stat-row"><div class="stat-label-row"><span style="color:'+s.color+'">'+s.name+'</span><span>'+val+'</span></div><div class="stat-bar-bg"><div class="stat-bar-fill" style="width:'+val+'%;background:'+s.color+'"></div></div></div>';
   }).join('');
 }
 
-function openProjectModal(pid) {
-  const p = state.projects.find(x => x.id === pid);
-  if (!p) return;
-  document.getElementById('project-modal-title').textContent = p.name;
-  document.getElementById('project-modal-desc').textContent = p.description;
-  document.getElementById('project-modal-partners').innerHTML = (p.partners || []).map(pt => `<span class="partner-tag">${pt}</span>`).join('');
-  const milestones = state.milestones.filter(m => m.project_id === pid).sort((a, b) => new Date(a.date) - new Date(b.date));
-  const risks = state.risks.filter(r => r.project_id === pid);
-  document.getElementById('project-timeline').innerHTML = milestones.map(m => `
-    <div class="milestone-item ${m.status} ${m.status === 'pending' && m.date < today() ? 'overdue' : ''}">
-      <div class="milestone-dot"></div>
-      <div class="milestone-content">
-        <div class="milestone-title">${m.title}</div>
-        <div class="milestone-date">${fmtDate(m.date)}</div>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('project-risks').innerHTML = risks.map(r => `
-    <div class="risk-item ${r.level} ${r.status}" onclick="toggleRisk('${r.id}', '${r.status}')">
-      <div class="risk-level"></div>
-      <div class="risk-title">${r.title}</div>
-      <div class="risk-status">${r.status === 'open' ? '未解决' : '已解决'}</div>
-    </div>
-  `).join('') || '<div class="empty">暂无风险</div>';
-  openModal('project-modal');
+function catSvg(){
+  return '<svg viewBox="0 0 100 100" style="width:48px;height:48px"><circle cx="50" cy="50" r="46" fill="#2a3f55"/><ellipse cx="50" cy="58" rx="26" ry="20" fill="#d4a853"/><polygon points="24,44 20,22 38,32" fill="#d4a853"/><polygon points="76,44 80,22 62,32" fill="#d4a853"/><circle cx="38" cy="52" r="4" fill="#0a0f14"/><circle cx="62" cy="52" r="4" fill="#0a0f14"/><ellipse cx="50" cy="60" rx="5" ry="3" fill="#b8943f"/></svg>';
 }
 
-function renderFarm() {
-  let cells = '';
-  for (let i = 0; i < 16; i++) {
-    const item = state.farmItems.find(f => f.grid_position === i);
-    if (item) {
-      cells += `<div class="farm-cell ${item.status === 'ready' ? 'ready' : ''}" onclick="onFarmCellClick(${i}, '${item.id}', ${item.xp_reward}, '${item.emoji}')"><div class="farm-emoji">${item.emoji}</div>${item.status === 'ready' ? '<div class="farm-glow"></div>' : ''}</div>`;
-    } else {
-      cells += `<div class="farm-cell empty" onclick="selectFarmCell(${i})"><div class="farm-plus">+</div></div>`;
-    }
+function renderToday(){
+  const actEl=document.getElementById('activity-list');
+  const todayXp=state.activities.reduce((s,a)=>s+(a.xp||0),0);
+  document.getElementById('today-xp-tag').textContent='+'+todayXp+' XP';
+  
+  if(state.activities.length===0){
+    actEl.innerHTML='<div class="empty-state"><div class="empty-emoji">📝</div>今日还没有战报</div>';
+  }else{
+    actEl.innerHTML=state.activities.map(a=>'<div class="activity-item"><div class="activity-icon">'+(a.icon||'🔥')+'</div><div class="activity-body"><div class="activity-content">'+a.content+'</div></div><div class="activity-xp">+'+(a.xp||0)+'</div></div>').join('');
   }
-  document.getElementById('farm-grid').innerHTML = cells;
+  
+  const taskEl=document.getElementById('task-list');
+  const sorted=[...state.tasks].sort((a,b)=>a.status===b.status?0:a.status==='done'?1:-1);
+  
+  if(sorted.length===0){
+    taskEl.innerHTML='<div class="empty-state"><div class="empty-emoji">🎯</div>暂无任务</div>';
+  }else{
+    taskEl.innerHTML=sorted.map(t=>{
+      const isDone=t.status==='done';
+      const overdue=!isDone&&isOverdue(t.due_date);
+      return '<div class="task-item '+(isDone?'done':'')+'" '+(isDone?'':'onclick="onTaskClick('+t.id+','+t.xp_value+\',\''+t.title.replace(/'/g,"\\'")+'\')"')+'"><div class="task-check">'+(isDone?'✓':'')+'</div><div class="task-body"><div class="task-title">'+t.title+(overdue?' <span class="overdue-badge">⚠️</span>':'')+'</div><div class="task-meta">'+(t.category||'')+(t.due_date?' · '+fmtDate(t.due_date):'')+'</div></div><div class="task-xp">+'+t.xp_value+'</div></div>';
+    }).join('');
+  }
 }
 
-function selectFarmCell(pos) {
-  selectedCell = pos;
-  openModal('plant-modal');
+function onTaskClick(id,xp,title){
+  pendingTaskId=id;
+  pendingTaskXp=xp;
+  document.getElementById('confirm-text').textContent='确认完成「'+title+'」？获得 '+xp+' XP';
+  openModal('modal-confirm');
 }
 
-function selectPlant(type) {
-  selectedPlant = PLANTS.find(p => p.type === type);
-  if (!selectedPlant || selectedCell === null) return;
-  closeModal('plant-modal');
-  document.getElementById('confirm-plant-msg').innerHTML = `花费 ${selectedPlant.xpCost} XP 种植 ${selectedPlant.emoji} ${selectedPlant.name}？<br>${selectedPlant.hoursReady}小时后收获 +${selectedPlant.xpReward} XP`;
-  openModal('confirm-plant-modal');
+async function confirmTaskDone(){
+  closeModal('modal-confirm');
+  if(!pendingTaskId)return;
+  try{
+    await db.from('tasks').update({status:'done',done_at:new Date().toISOString()}).eq('id',pendingTaskId);
+    const newXp=(state.character?.xp_total||0)+pendingTaskXp;
+    await db.from('character').update({xp_total:newXp}).eq('id',1);
+    state.character.xp_total=newXp;
+    showToast('任务完成！+'+pendingTaskXp+' XP');
+    showXpFloat(pendingTaskXp);
+    await loadData();
+  }catch(e){showToast('操作失败','error')}
+  pendingTaskId=null;
 }
 
-async function confirmPlant() {
-  if (!selectedPlant || selectedCell === null) return;
-  closeModal('confirm-plant-modal');
-  if (state.character.xp_total < selectedPlant.xpCost) {
-    showToast('XP 不足！', 'error');
+function renderProjects(){
+  const el=document.getElementById('projects-grid');
+  if(state.projects.length===0){
+    el.innerHTML='<div class="empty-state"><div class="empty-emoji">📌</div>暂无项目</div>';
     return;
   }
-  try {
-    const readyAt = new Date(Date.now() + selectedPlant.hoursReady * 3600000).toISOString();
-    await db.from('farm_items').insert({ item_type: selectedPlant.type, grid_position: selectedCell, emoji: selectedPlant.emoji, xp_cost: selectedPlant.xpCost, xp_reward: selectedPlant.xpReward, ready_at: readyAt });
-    await db.from('character').update({ xp_total: state.character.xp_total - selectedPlant.xpCost }).eq('id', 1);
-    showToast(`已种植 ${selectedPlant.name}`);
-    selectedPlant = null; selectedCell = null;
-    fetchAll();
-  } catch (e) {
-    showToast('种植失败', 'error');
-  }
+  el.innerHTML=state.projects.map(p=>{
+    const color=p.color||'#fb923c';
+    const riskCount=state.risks.filter(r=>r.project_id===p.id&&r.level==='high'&&r.status!=='resolved').length;
+    return '<div class="project-card" onclick="openProjectDrawer('+p.id+')" style="--p-color:'+color+'"><div class="project-card-header"><div class="project-name">'+p.name+'</div><span class="status-badge '+(p.status==='active'?'status-active':'status-planning')+'">'+(p.status==='active'?'进行中':'规划中')+'</span></div><div class="project-progress-wrap"><div class="project-progress-label"><span>进度</span><span>'+(p.progress||0)+'%</span></div><div class="project-progress-bar-bg"><div class="project-progress-bar-fill" style="width:'+(p.progress||0)+'%;"></div></div></div><div class="project-partners">'+(p.partners||[]).map(part=>'<span class="project-partner-tag">'+part+'</span>').join('')+'</div>'+(riskCount>0?'<div class="risk-badge">⚠️ 高危风险 '+riskCount+'</div>':'')+'</div>';
+  }).join('');
 }
 
-function onFarmCellClick(pos, id, xp, emoji) {
-  const item = state.farmItems.find(f => f.id === id);
-  if (item && item.status === 'ready') {
-    pendingHarvestId = id;
-    pendingHarvestXp = xp;
-    document.getElementById('confirm-harvest-msg').textContent = `收获 ${emoji} 获得 +${xp} XP？`;
-    openModal('confirm-harvest-modal');
-  }
+function openProjectDrawer(pid){
+  const p=state.projects.find(x=>x.id===pid);
+  if(!p)return;
+  
+  document.getElementById('drawer-title').textContent=p.name;
+  const miles=state.milestones.filter(m=>m.project_id===pid).sort((a,b)=>a.date>b.date?1:-1);
+  const risks=state.risks.filter(r=>r.project_id===pid);
+  const tasks=state.tasks.filter(t=>t.project_id===pid||t.category==='project');
+  const color=p.color||'#fb923c';
+  
+  let html='<div class="drawer-section"><div class="drawer-section-title">基本信息</div><div style="font-size:13px;line-height:1.6">'+(p.description||'暂无描述')+'</div><div style="font-size:12px;color:var(--text2);margin-top:8px">'+(p.start_date||'')+(p.start_date&&p.end_date?' ~ ':'')+(p.end_date||'')+'</div></div>';
+  
+  html+='<div class="drawer-section"><div class="drawer-section-title">合作方</div><div style="display:flex;flex-wrap:wrap;gap:6px">'+((p.partners||[]).map(part=>'<span class="tag">'+part+'</span>').join('')||'—')+'</div></div>';
+  
+  html+='<div class="drawer-section"><div class="drawer-section-title">时间线</div><div class="timeline">'+(miles.length===0?'<div style="font-size:12px;color:var(--text2)">暂无里程碑</div>':miles.map((m,idx)=>{
+    const isDone=m.status==='done';
+    const overdue=!isDone&&isOverdue(m.date);
+    return '<div class="timeline-item"><div class="tl-dot-col"><div class="tl-dot '+(isDone?'done':(overdue?'overdue':'pending'))+'"></div>'+(idx<miles.length-1?'<div class="tl-line"></div>':'')+'</div><div class="tl-content"><div class="tl-title '+(isDone?'done':(overdue?'overdue':''))+'">'+m.title+'</div><div class="tl-date">'+fmtDate(m.date)+(overdue?' (逾期)':'')+'</div></div></div>';
+  }).join(''))+'</div></div>';
+  
+  html+='<div class="drawer-section"><div class="drawer-section-title">风险列表</div>'+(risks.length===0?'<div style="font-size:12px;color:var(--text2)">暂无风险</div>':risks.map(r=>'<div class="risk-item '+(r.status==='resolved'?'risk-resolved':'')+'"><div><div style="font-size:13px">'+r.title+'</div><span class="risk-level risk-'+r.level+'">'+(r.level==='high'?'高危':(r.level==='medium'?'中危':'低危'))+'</span></div>'+(r.status!=='resolved'?'<button class="risk-resolve-btn" onclick="resolveRisk('+r.id+')">标记解决</button>':'')+'</div>').join(''))+'</div>';
+  
+  html+='<div class="drawer-section"><div class="drawer-section-title">项目 Todo ('+tasks.filter(t=>t.status!=='done').length+' 待办)</div>'+(tasks.length===0?'<div style="font-size:12px;color:var(--text2)">暂无任务</div>':tasks.map(t=>'<div class="risk-item '+(t.status==='done'?'risk-resolved':'')+'"><div style="font-size:13px">'+t.title+'</div><span style="font-size:11px;color:'+(t.status==='done'?'var(--green)':'var(--text2)')+'">'+(t.status==='done'?'已完成':'待办')+'</span></div>').join(''))+'</div>';
+  
+  document.getElementById('drawer-content').innerHTML=html;
+  document.getElementById('drawer-overlay').classList.add('active');
 }
 
-async function confirmHarvest() {
-  if (!pendingHarvestId) return;
-  closeModal('confirm-harvest-modal');
-  try {
-    await db.from('farm_items').update({ status: 'harvested' }).eq('id', pendingHarvestId);
-    await db.from('character').update({ xp_total: state.character.xp_total + pendingHarvestXp }).eq('id', 1);
-    showXpFloat(pendingHarvestXp);
-    showToast('收获成功！');
-    pendingHarvestId = null;
-    fetchAll();
-  } catch (e) {
-    showToast('收获失败', 'error');
-  }
+function closeDrawer(){document.getElementById('drawer-overlay').classList.remove('active')}
+
+async function resolveRisk(id){
+  try{
+    await db.from('project_risks').update({status:'resolved'}).eq('id',id);
+    showToast('风险已解决');
+    await loadData();
+    const openPid=state.risks.find(r=>r.id===id)?.project_id;
+    if(openPid)openProjectDrawer(openPid);
+  }catch(e){showToast('操作失败','error')}
 }
 
-function onTaskClick(id, xp, title) {
-  const t = state.tasks.find(x => x.id === id);
-  if (!t || t.status === 'done') return;
-  pendingTaskId = id; pendingTaskXp = xp;
-  document.getElementById('confirm-task-msg').innerHTML = `确认完成「${title}」？<br>获得 <strong>+${xp} XP</strong>`;
-  openModal('confirm-task-modal');
-}
-
-async function confirmTaskComplete() {
-  if (!pendingTaskId) return;
-  closeModal('confirm-task-modal');
-  try {
-    await db.from('tasks').update({ status: 'done', done_at: new Date().toISOString() }).eq('id', pendingTaskId);
-    await db.from('character').update({ xp_total: state.character.xp_total + pendingTaskXp }).eq('id', 1);
-    showXpFloat(pendingTaskXp);
-    showToast('任务完成！');
-    pendingTaskId = null;
-    fetchAll();
-  } catch (e) {
-    showToast('操作失败', 'error');
-  }
-}
-
-async function addActivity() {
-  const icon = document.getElementById('act-icon').value || '📝';
-  const content = document.getElementById('act-content').value;
-  const xp = parseInt(document.getElementById('act-xp').value) || 0;
-  if (!content) { showToast('请输入内容', 'error'); return; }
-  try {
-    await db.from('activities').insert({ activity_time: new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' }), icon, content, xp, date: today() });
-    await db.from('character').update({ xp_total: state.character.xp_total + xp }).eq('id', 1);
-    closeModal('activity-modal');
-    showXpFloat(xp);
-    showToast('战报记录成功！');
-    document.getElementById('act-content').value = '';
-    fetchAll();
-  } catch (e) {
-    showToast('操作失败', 'error');
-  }
-}
-
-async function addTask() {
-  const title = document.getElementById('task-title').value;
-  const category = document.getElementById('task-category').value;
-  const xp = parseInt(document.getElementById('task-xp').value) || 30;
-  const due = document.getElementById('task-due').value;
-  if (!title) { showToast('请输入任务标题', 'error'); return; }
-  try {
-    await db.from('tasks').insert({ title, category, xp_value: xp, due_date: due || null, status: 'todo' });
-    closeModal('task-modal');
-    showToast('任务创建成功');
-    document.getElementById('task-title').value = '';
-    fetchAll();
-  } catch (e) {
-    showToast('操作失败', 'error');
-  }
-}
-
-async function updateAvatar() {
-  const url = document.getElementById('avatar-url').value;
-  try {
-    await db.from('user_profile').update({ avatar_url: url }).eq('id', 1);
-    closeModal('avatar-modal');
-    showToast('头像更新成功');
-    fetchAll();
-  } catch (e) {
-    showToast('更新失败', 'error');
-  }
-}
-
-async function toggleRisk(rid, curr) {
-  const next = curr === 'open' ? 'resolved' : 'open';
-  try {
-    await db.from('project_risks').update({ status: next }).eq('id', rid);
-    showToast(next === 'resolved' ? '风险已解决' : '风险已重开');
-    fetchAll();
-    const pid = state.risks.find(r => r.id === rid)?.project_id;
-    if (pid) openProjectModal(pid);
-  } catch (e) {
-    showToast('操作失败', 'error');
-  }
-}
-
-function renderCharacterTab() {
-  const char = state.character;
-  if (!char) return;
-  const cvs = document.getElementById('radar-canvas');
-  const ctx = cvs.getContext('2d');
-  const w = cvs.width, h = cvs.height, cx = w / 2, cy = h / 2, r = 80;
-  const stats = [{ name: '组织力', val: char.stat_organize }, { name: 'AI力', val: char.stat_ai }, { name: '布道力', val: char.stat_broadcast }, { name: '执行力', val: char.stat_execute }, { name: '洞察力', val: char.stat_insight }];
-  ctx.clearRect(0, 0, w, h);
-  for (let i = 1; i <= 5; i++) {
-    ctx.beginPath(); ctx.strokeStyle = '#2a3a4a';
-    for (let j = 0; j < 5; j++) {
-      const a = (j * 72 - 90) * Math.PI / 180;
-      const x = cx + r * (i / 5) * Math.cos(a), y = cy + r * (i / 5) * Math.sin(a);
-      j === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+function renderFarm(){
+  const el=document.getElementById('farm-grid');
+  let html='';
+  for(let i=0;i<16;i++){
+    const item=state.farmItems.find(f=>f.grid_position===i);
+    if(item&&item.item_type==='lobster'){
+      html+='<div class="farm-cell" style="cursor:default">🦞</div>';
+    }else if(item){
+      const ready=item.status==='ready';
+      const plant=PLANTS.find(p=>p.type===item.item_type);
+      html+='<div class="farm-cell '+(ready?'ready':'')+'" onclick="onFarmCellClick('+i+')">'+(plant?.emoji||'🌱')+(ready?'':'<div class="cell-timer">'+(timeLeft(item.ready_at)||'...')+'</div>')+'</div>';
+    }else{
+      html+='<div class="farm-cell empty" onclick="onFarmEmptyClick('+i+')"></div>';
     }
-    ctx.closePath(); ctx.stroke();
   }
-  ctx.beginPath(); ctx.fillStyle = 'rgba(255, 107, 53, 0.3)'; ctx.strokeStyle = '#ff6b35'; ctx.lineWidth = 2;
-  stats.forEach((s, i) => {
-    const a = (i * 72 - 90) * Math.PI / 180;
-    const x = cx + r * (s.val / 100) * Math.cos(a), y = cy + r * (s.val / 100) * Math.sin(a);
-    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
-    const lx = cx + (r + 20) * Math.cos(a), ly = cy + (r + 20) * Math.sin(a);
-    ctx.fillStyle = '#e8e0d5'; ctx.font = '12px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(s.name, lx, ly);
-  });
-  ctx.closePath(); ctx.fill(); ctx.stroke();
-  document.getElementById('achievements-grid').innerHTML = state.achievements.map(a => `
-    <div class="achievement-card"><div class="achievement-icon">${a.icon}</div><div class="achievement-name">${a.name}</div><div class="achievement-desc">${a.description}</div></div>
-  `).join('');
+  el.innerHTML=html;
+  
+  document.getElementById('shop-grid').innerHTML=PLANTS.map(p=>'<div class="shop-item" onclick="buyPlant(\''+p.type+'\')"><div class="shop-emoji">'+p.emoji+'</div><div class="shop-name">'+p.name+'</div><div class="shop-cost">'+p.xpCost+' XP</div></div>').join('');
+  document.getElementById('farm-xp-hint').textContent='当前 XP: '+(state.character?.xp_total||0);
 }
 
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-  document.querySelector(`.tab[data-tab="${tab}"]`).classList.add('active');
-  document.getElementById('tab-' + tab).classList.add('active');
+function timeLeft(readyAt){
+  if(!readyAt)return null;
+  const diff=new Date(readyAt)-Date.now();
+  if(diff<=0)return null;
+  const h=Math.floor(diff/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  return h>0?h+'h'+m+'m':m+'m';
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  fetchAll();
-  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => switchTab(t.dataset.tab)));
-  document.querySelectorAll('.modal-overlay').forEach(m => m.addEventListener('click', (e) => { if (e.target === m) m.classList.remove('active'); }));
-  setInterval(fetchAll, 30000);
+function onFarmEmptyClick(pos){
+  selectedCell=pos;
+  const opts=document.getElementById('plant-options');
+  opts.innerHTML=PLANTS.map(p=>'<div class="shop-item" onclick="selectPlant(\''+p.type+'\')" style="display:inline-block;width:45%;margin:2%"><div class="shop-emoji">'+p.emoji+'</div><div class="shop-name">'+p.name+'</div><div class="shop-cost">-'+p.xpCost+' XP</div></div>').join('');
+  openModal('modal-plant');
+}
+
+function selectPlant(type){
+  selectedPlant=PLANTS.find(p=>p.type===type);
+  closeModal('modal-plant');
+  if(!selectedPlant||selectedCell===null)return;
+  const xp=state.character?.xp_total||0;
+  if(xp<selectedPlant.xpCost){showToast('XP不足！','error');return}
+  doPlant();
+}
+
+async function doPlant(){
+  try{
+    const readyAt=new Date(Date.now()+selectedPlant.hoursReady*3600000).toISOString();
+    await db.from('farm_items').insert({
+      item_type:selectedPlant.type,grid_position:selectedCell,status:'planted',
+      planted_at:new Date().toISOString(),ready_at:readyAt,
+      xp_cost:selectedPlant.xpCost,xp_reward:selectedPlant.xpReward,emoji:selectedPlant.emoji
+    });
+    const newXp=(state.character?.xp_total||0)-selectedPlant.xpCost;
+    await db.from('character').update({xp_total:newXp}).eq('id',1);
+    state.character.xp_total=newXp;
+    showToast('种下'+selectedPlant.name+'! -'+selectedPlant.xpCost+' XP');
+    selectedPlant=null;selectedCell=null;
+    await loadData();
+  }catch(e){showToast('种植失败','error')}
+}
+
+function onFarmCellClick(pos){
+  const item=state.farmItems.find(f=>f.grid_position===pos);
+  if(!item||item.status!=='ready')return;
+  pendingHarvestId=item.id;
+  pendingHarvestXp=item.xp_reward||0;
+  const plant=PLANTS.find(p=>p.type===item.item_type);
+  document.getElementById('harvest-text').textContent='收获 '+(plant?.emoji||'🌱')+' '+(plant?.name||'植物')+'? +'+(item.xp_reward||0)+' XP';
+  openModal('modal-harvest');
+}
+
+async function confirmHarvest(){
+  closeModal('modal-harvest');
+  if(!pendingHarvestId)return;
+  try{
+    await db.from('farm_items').update({status:'harvested'}).eq('id',pendingHarvestId);
+    const newXp=(state.character?.xp_total||0)+pendingHarvestXp;
+    await db.from('character').update({xp_total:newXp}).eq('id',1);
+    state.character.xp_total=newXp;
+    showToast('收获成功! +'+pendingHarvestXp+' XP');
+    showXpFloat(pendingHarvestXp);
+    await loadData();
+  }catch(e){showToast('收获失败','error')}
+  pendingHarvestId=null;
+}
+
+function buyPlant(type){
+  const plant=PLANTS.find(p=>p.type===type);
+  const emptyCells=[];
+  for(let i=0;i<16;i++)if(!state.farmItems.find(f=>f.grid_position===i))emptyCells.push(i);
+  if(emptyCells.length===0){showToast('农场已满!','error');return}
+  selectedCell=emptyCells[0];
+  selectedPlant=plant;
+  const xp=state.character?.xp_total||0;
+  if(xp<plant.xpCost){showToast('XP不足!','error');return}
+  doPlant();
+}
+
+function startPixelAnimation(){
+  const cat=document.getElementById('pixel-cat');
+  const lobster=document.getElementById('pixel-lobster');
+  if(!cat||!lobster)return;
+  
+  setInterval(()=>{
+    pixelCatPos.x+=catDirection*20;
+    if(pixelCatPos.x>250||pixelCatPos.x<20)catDirection*=-1;
+    cat.style.left=pixelCatPos.x+'px';
+    cat.style.transform=catDirection<0?'scaleX(-1)':'scaleX(1)';
+  },2000);
+  
+  setInterval(()=>{
+    pixelLobsterPos.x=250+Math.sin(Date.now()/1000)*30;
+    lobster.style.left=pixelLobsterPos.x+'px';
+  },100);
+}
+
+function renderCharacterTab(){
+  const char=state.character;
+  if(!char)return;
+  
+  const big=document.getElementById('avatar-big');
+  const prof=state.profile;
+  if(prof?.avatar_url){
+    big.innerHTML='<img src="'+prof.avatar_url+'" onerror="this.outerHTML=catSvg()">';
+  }else big.innerHTML=catSvg().replace('48px','100px');
+  
+  document.getElementById('char-big-name').textContent=prof?.name||'未命名';
+  document.getElementById('char-big-level').textContent='LV '+(char?.level||1)+' · '+(char?.level_name||'小猫咪');
+  
+  drawRadar();
+  
+  const ach=document.getElementById('achievements-grid');
+  if(state.achievements.length===0){
+    ach.innerHTML='<div class="empty-state" style="grid-column:1/-1"><div class="empty-emoji">🏆</div>暂无成就</div>';
+  }else{
+    ach.innerHTML=state.achievements.map(a=>'<div class="achievement-card"><div class="achievement-icon">'+(a.icon||'🏅')+'</div><div class="achievement-name">'+a.name+'</div><div class="achievement-desc">'+a.description+'</div></div>').join('');
+  }
+}
+
+function drawRadar(){
+  const canvas=document.getElementById('radar-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const char=state.character;
+  if(!char)return;
+  
+  const cx=130,cy=100,r=80;
+  const stats=[
+    {key:'stat_organize',name:'组织力',color:'#4ade80'},
+    {key:'stat_ai',name:'AI力',color:'#22d3ee'},
+    {key:'stat_broadcast',name:'布道力',color:'#f472b6'},
+    {key:'stat_execute',name:'执行力',color:'#fb923c'},
+    {key:'stat_insight',name:'洞察力',color:'#c084fc'}
+  ];
+  
+  ctx.clearRect(0,0,260,200);
+  
+  ctx.strokeStyle='#2a3f55';ctx.lineWidth=1;
+  for(let r2=0.2;r2<=1;r2+=0.2){
+    ctx.beginPath();
+    for(let i=0;i<5;i++){
+      const ang=(Math.PI*2*i)/5-Math.PI/2;
+      const x=cx+Math.cos(ang)*r*r2;
+      const y=cy+Math.sin(ang)*r*r2;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();ctx.stroke();
+  }
+  
+  for(let
+function drawRadar(){
+  const canvas=document.getElementById('radar-canvas');
+  if(!canvas)return;
+  const ctx=canvas.getContext('2d');
+  const char=state.character;
+  if(!char)return;
+  const cx=130,cy=100,r=80;
+  const stats=[
+    {key:'stat_organize',name:'组织力',color:'#4ade80'},
+    {key:'stat_ai',name:'AI力',color:'#22d3ee'},
+    {key:'stat_broadcast',name:'布道力',color:'#f472b6'},
+    {key:'stat_execute',name:'执行力',color:'#fb923c'},
+    {key:'stat_insight',name:'洞察力',color:'#c084fc'}
+  ];
+  ctx.clearRect(0,0,260,200);
+  ctx.strokeStyle='#2a3f55';ctx.lineWidth=1;
+  for(let r2=0.2;r2<=1;r2+=0.2){
+    ctx.beginPath();
+    for(let i=0;i<5;i++){
+      const ang=(Math.PI*2*i)/5-Math.PI/2;
+      const x=cx+Math.cos(ang)*r*r2;
+      const y=cy+Math.sin(ang)*r*r2;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.closePath();ctx.stroke();
+  }
+  for(let i=0;i<5;i++){
+    const ang=(Math.PI*2*i)/5-Math.PI/2;
+    ctx.beginPath();ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(ang)*r,cy+Math.sin(ang)*r);ctx.stroke();
+    ctx.fillStyle=stats[i].color;ctx.font='bold 11px sans-serif';
+    ctx.textAlign='center';ctx.fillText(stats[i].name,cx+Math.cos(ang)*(r+18),cy+Math.sin(ang)*(r+18));
+  }
+  ctx.beginPath();
+  for(let i=0;i<5;i++){
+    const ang=(Math.PI*2*i)/5-Math.PI/2;
+    const val=Math.min(100,Math.max(0,char[stats[i].key]||0));
+    const x=cx+Math.cos(ang)*r*(val/100);
+    const y=cy+Math.sin(ang)*r*(val/100);
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.fillStyle='rgba(245,200,66,0.2)';ctx.fill();
+  ctx.strokeStyle='#f5c842';ctx.lineWidth=2;ctx.stroke();
+  for(let i=0;i<5;i++){
+    const ang=(Math.PI*2*i)/5-Math.PI/2;
+    const val=Math.min(100,Math.max(0,char[stats[i].key]||0));
+    ctx.beginPath();
+    ctx.arc(cx+Math.cos(ang)*r*(val/100),cy+Math.sin(ang)*r*(val/100),4,0,Math.PI*2);
+    ctx.fillStyle=stats[i].color;ctx.fill();
+  }
+}
+
+function openActivityModal(){
+  document.getElementById('act-icon').value='🔥';
+  document.getElementById('act-content').value='';
+  document.getElementById('act-xp').value='10';
+  openModal('modal-activity');
+}
+
+async function submitActivity(){
+  const icon=document.getElementById('act-icon').value.trim()||'🔥';
+  const content=document.getElementById('act-content').value.trim();
+  const xp=parseInt(document.getElementById('act-xp').value)||0;
+  if(!content){showToast('请输入内容','error');return}
+  closeModal('modal-activity');
+  try{
+    await db.from('activities').insert({activity_time:new Date().toISOString(),icon,content,xp,date:today()});
+    const newXp=(state.character?.xp_total||0)+xp;
+    await db.from('character').update({xp_total:newXp}).eq('id',1);
+    state.character.xp_total=newXp;
+    showToast('战报记录成功! +'+xp+' XP');
+    showXpFloat(xp);
+    await loadData();
+  }catch(e){showToast('记录失败','error')}
+}
+
+function openTaskModal(){
+  document.getElementById('task-title').value='';
+  document.getElementById('task-category').value='daily';
+  document.getElementById('task-xp').value='20';
+  document.getElementById('task-due').value=today();
+  openModal('modal-task');
+}
+
+async function submitTask(){
+  const title=document.getElementById('task-title').value.trim();
+  const category=document.getElementById('task-category').value;
+  const xp=parseInt(document.getElementById('task-xp').value)||0;
+  const dueDate=document.getElementById('task-due').value||null;
+  if(!title){showToast('请输入任务名称','error');return}
+  closeModal('modal-task');
+  try{
+    await db.from('tasks').insert({title,category,status:'todo',xp_value:xp,due_date:dueDate});
+    showToast('任务添加成功');
+    await loadData();
+  }catch(e){showToast('添加失败','error')}
+}
+
+function openAvatarModal(){
+  document.getElementById('avatar-url').value=state.profile?.avatar_url||'';
+  openModal('modal-avatar');
+}
+
+async function submitAvatar(){
+  const url=document.getElementById('avatar-url').value.trim();
+  closeModal('modal-avatar');
+  try{
+    await db.from('user_profile').update({avatar_url:url||null}).eq('id',1);
+    showToast('头像更新成功');
+    await loadData();
+  }catch(e){showToast('更新失败','error')}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  loadData();
+  document.getElementById('task-due').value=today();
 });
 </script>
-
 </body>
 </html>

@@ -633,7 +633,8 @@ function renderToday(){
     taskEl.innerHTML=sorted.map(t=>{
       const isDone=t.status==='done';
       const overdue=!isDone&&isOverdue(t.due_date);
-      return '<div class="task-item '+(isDone?'done':'')+'" '+(isDone?'':'onclick="onTaskClick('+t.id+','+t.xp_value+\',\''+t.title.replace(/'/g,"\\'")+'\')"')+'"><div class="task-check">'+(isDone?'✓':'')+'</div><div class="task-body"><div class="task-title">'+t.title+(overdue?' <span class="overdue-badge">⚠️</span>':'')+'</div><div class="task-meta">'+(t.category||'')+(t.due_date?' · '+fmtDate(t.due_date):'')+'</div></div><div class="task-xp">+'+t.xp_value+'</div></div>';
+      const safeTitle=t.title.replace(/'/g,"&apos;");
+      return '<div class="task-item '+(isDone?'done':'')+'" '+(isDone?'':'onclick="onTaskClick('+t.id+','+t.xp_value+',\''+safeTitle+'\')"')+'><div class="task-check">'+(isDone?'✓':'')+'</div><div class="task-body"><div class="task-title">'+t.title+(overdue?' <span class="overdue-badge">⚠️</span>':'')+'</div><div class="task-meta">'+(t.category||'')+(t.due_date?' · '+fmtDate(t.due_date):'')+'</div></div><div class="task-xp">+'+t.xp_value+'</div></div>';
     }).join('');
   }
 }

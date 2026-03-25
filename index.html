@@ -861,37 +861,6 @@ function drawRadar(){
   const ctx=canvas.getContext('2d');
   const char=state.character;
   if(!char)return;
-  
-  const cx=130,cy=100,r=80;
-  const stats=[
-    {key:'stat_organize',name:'组织力',color:'#4ade80'},
-    {key:'stat_ai',name:'AI力',color:'#22d3ee'},
-    {key:'stat_broadcast',name:'布道力',color:'#f472b6'},
-    {key:'stat_execute',name:'执行力',color:'#fb923c'},
-    {key:'stat_insight',name:'洞察力',color:'#c084fc'}
-  ];
-  
-  ctx.clearRect(0,0,260,200);
-  
-  ctx.strokeStyle='#2a3f55';ctx.lineWidth=1;
-  for(let r2=0.2;r2<=1;r2+=0.2){
-    ctx.beginPath();
-    for(let i=0;i<5;i++){
-      const ang=(Math.PI*2*i)/5-Math.PI/2;
-      const x=cx+Math.cos(ang)*r*r2;
-      const y=cy+Math.sin(ang)*r*r2;
-      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
-    }
-    ctx.closePath();ctx.stroke();
-  }
-  
-  for(let
-function drawRadar(){
-  const canvas=document.getElementById('radar-canvas');
-  if(!canvas)return;
-  const ctx=canvas.getContext('2d');
-  const char=state.character;
-  if(!char)return;
   const cx=130,cy=100,r=80;
   const stats=[
     {key:'stat_organize',name:'组织力',color:'#4ade80'},
